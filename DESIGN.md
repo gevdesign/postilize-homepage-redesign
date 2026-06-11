@@ -20,9 +20,15 @@ Strategy: crisp near-white/ink ground with one committed deep emerald that fully
 
 Never #000 or #fff. No other hues.
 
+### Verified benchmark data (pulled from competitor live CSS, June 2026)
+- Harvey: fonts custom HarveySerif + ABC Diatype Variable; ivory #FAFAF9 (gray-50-ivory), ink #0F0E0D (gray-950-ink), gray-200 #E5E5E3, gray-600 #706D66; muted accents alabaster #DBD9D1, blush #D9CDCC, casal #333F40, bronze #593D3A; hero video loop; framed imagery with hover scale 1.02.
+- Legora: fonts Rhymes Display Light + Domaine Display Narrow (display), Suisse Intl Book/Medium (body); emerald #005032 dominant, ink #0D1016, off-white #FAFAF9, panel #E6E6E6, hover green #003D26.
+- Our --paper matches both sites' off-white exactly; hairline and ink-soft sit within 1–2 points of Harvey's grays.
+
 ## Typography
-- Display: Source Serif 4 (opsz), weights 300–400. Tight tracking (-0.015em to -0.025em), line-height 1.04–1.12 on display sizes.
-- Body/UI: Hanken Grotesk, weights 400/500/600. 17px body, line-height 1.6.
+- Display: Source Serif 4 (opsz), weights 300–400. Tight tracking (-0.03em on display, -0.015em elsewhere), line-height 1.04–1.12 on display sizes.
+- Body/UI: Geist, weights 400/500/600. 17px body, line-height 1.6. (Chosen as the closest free analog to the competitors' Suisse Intl / ABC Diatype; replaced Hanken Grotesk, which read too warm/humanist for the register.)
+- Rejected: Gloock as display serif (tested side by side; too heavy/fashion-editorial against Harvey's and Legora's light serifs).
 - Labels: Hanken Grotesk 600, 11–12px, uppercase, +0.12em tracking, ink-soft.
 - Scale ratio ≥1.25. H1 clamp(2.75rem, 5.5vw, 4.5rem).
 - Body measure ≤ 65ch.

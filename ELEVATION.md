@@ -4,7 +4,7 @@ What separates those three sites from ours today, verified against their live ma
 
 ## What they actually do
 
-**Harvey** (ink `#1E1D1A` on warm eggshell): a hero **video loop**, editorial photography and product UI in rounded frames with a gentle hover scale, a hard-numbers stats row (65+ countries, 1,500+ customers, 142,000+ users), serif display type, dark band moments for rhythm.
+**Harvey** (ink `#0F0E0D` on ivory `#FAFAF9`, verified from their CSS tokens): a hero **video loop**, editorial photography and product UI in rounded frames with a gentle hover scale (1.02), a hard-numbers stats row (65+ countries, 1,500+ customers, 142,000+ users), custom serif + ABC Diatype, dark band moments for rhythm. Full verified font/color data lives in DESIGN.md.
 
 **Legora** (our palette source): product screenshots in framed panels on `#E6E6E6` fields, emerald `#005032` carrying CTAs and full sections, customer logos plus stat numbers, big serif statements.
 
