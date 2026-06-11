@@ -155,7 +155,8 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
 .trust .label{color:color-mix(in srgb,var(--paper) 55%,transparent);flex-shrink:0}
 .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;flex:1}
 .logo{position:relative;height:44px;display:flex;align-items:center;justify-content:center}
-.logo img{max-height:30px;max-width:88%;width:auto;filter:invert(1) brightness(1.4)}
+.logo img{max-height:32px;max-width:88%;width:auto;filter:brightness(0) invert(1);opacity:.85}
+.logo-tall img{max-height:42px}
 .logo.noimg{border:1px solid color-mix(in srgb,var(--paper) 16%,transparent);border-radius:4px}
 .logo.noimg::after{
   content:attr(data-ph);
@@ -179,15 +180,20 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
 }
 .opp-left p{font-size:.95rem;color:var(--ink-soft);max-width:44ch;margin-bottom:1rem}
 .opp-left .btn{margin-top:1rem}
-.stat{border-top:1px solid var(--hairline);padding:2.25rem 0 2.75rem}
-.stat:last-child{border-bottom:1px solid var(--hairline)}
-.stat-num,.stat-sub{
-  display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.03em;
-  font-size:clamp(2.8rem,5.5vw,4.9rem);line-height:1.02;
+.stat{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,230px);
+  gap:2rem;align-items:start;
+  border-top:1px solid var(--hairline);
+  padding:3rem 0 4rem;
 }
-.stat-num{color:var(--ink)}
-.stat-sub{color:var(--green)}
-.stat p{margin-top:1rem;font-size:.8rem;color:var(--ink-soft);max-width:40ch}
+.stat:last-child{border-bottom:1px solid var(--hairline)}
+.stat-num{
+  display:block;font-family:var(--sans);font-weight:400;letter-spacing:-.045em;
+  font-size:clamp(3.5rem,7vw,6.4rem);line-height:.92;white-space:nowrap;
+  color:var(--ink);
+}
+.stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.4rem}
+.stat--wide .stat-num{font-size:clamp(2.9rem,5.4vw,5rem)}
 
 /* ---------- statement: emerald drench ---------- */
 .statement{
@@ -433,12 +439,12 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
       <div class="trust-row reveal">
         <span class="label">Trusted by leading firms</span>
         <div class="logos">
-          <span class="logo" data-ph="Holland &amp; Knight"><img src="assets/logos/holland-knight.svg" alt="Holland &amp; Knight" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="White &amp; Case"><img src="assets/logos/white-case.svg" alt="White &amp; Case" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Dentons"><img src="assets/logos/dentons.svg" alt="Dentons" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Levenfeld Pearlstein"><img src="assets/logos/levenfeld.svg" alt="Levenfeld Pearlstein" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Caravel"><img src="assets/logos/caravel.svg" alt="Caravel" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Carahsoft"><img src="assets/logos/carahsoft.svg" alt="Carahsoft" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Holland &amp; Knight"><img src="assets/logos/holland-knight.png" alt="Holland &amp; Knight" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="White &amp; Case"><img src="assets/logos/white-case.png" alt="White &amp; Case" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo logo-tall" data-ph="Levenfeld Pearlstein"><img src="assets/logos/levenfeld.png?v=3" alt="Levenfeld Pearlstein" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Caravel"><img src="assets/logos/caravel.png" alt="Caravel" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Omnia"><img src="assets/logos/omnia.png" alt="Omnia" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Carahsoft"><img src="assets/logos/carahsoft.png" alt="Carahsoft" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
         </div>
       </div>
       <p class="litera reveal">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
@@ -459,19 +465,16 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
       <div class="opp-right">
         <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
         <div class="stat reveal">
-          <span class="stat-num">4.2 weeks</span>
-          <span class="stat-sub">before the RFP</span>
-          <p>Average head start when a client need is detected as a signal, not a bid invitation</p>
+          <span class="stat-num">4.2wks</span>
+          <p>average head start: a client need detected as a signal before the RFP exists</p>
         </div>
         <div class="stat reveal">
           <span class="stat-num">1,000+</span>
-          <span class="stat-sub">signals a week</span>
-          <p>Leadership changes, financings, regulatory shifts, and M&amp;A surfaced across your client base</p>
+          <p>client signals surfaced every week: leadership changes, financings, regulatory shifts, M&amp;A</p>
         </div>
-        <div class="stat reveal">
+        <div class="stat stat--wide reveal">
           <span class="stat-num">AmLaw 200</span>
-          <span class="stat-sub">firms growing</span>
-          <p>The Proactive suite runs inside the firms that take origination seriously</p>
+          <p>firms growing with the Proactive suite</p>
         </div>
       </div>
     </div>
@@ -508,8 +511,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <div class="reveal">
           <figure class="frame" data-parallax>
             <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" data-ph="Product image · Signals feed · assets/product-signals.png">
-              <img src="assets/product-signals.png" alt="Signals feed" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            <div class="frame-media" style="--ar:1600/773" data-ph="Product image · Signals feed · assets/product-signals.png">
+              <img src="assets/product-signals.png" alt="Proactive Signals dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
             </div>
           </figure>
         </div>
@@ -541,8 +544,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <div class="reveal">
           <figure class="frame" data-parallax>
             <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
-              <img src="assets/product-cleanse.png" alt="Data hygiene" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            <div class="frame-media" style="--ar:1600/773" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
+              <img src="assets/product-cleanse.png" alt="Proactive Cleanse data hygiene dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
             </div>
           </figure>
         </div>
