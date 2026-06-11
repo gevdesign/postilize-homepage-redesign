@@ -32,7 +32,7 @@ body{
   background:var(--paper);
   color:var(--ink);
   font-family:var(--sans);
-  font-size:17px;
+  font-size:15px;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
@@ -43,13 +43,13 @@ ul{list-style:none}
 
 /* ---------- type ---------- */
 .label{
-  font-size:.72rem;font-weight:600;letter-spacing:.13em;
+  font-size:.68rem;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-soft);
 }
 .display{
   font-family:var(--serif);font-weight:300;
   letter-spacing:-.03em;line-height:1.04;
-  font-size:clamp(3rem,6vw,5.25rem);
+  font-size:clamp(2.9rem,5.5vw,4.75rem);
   text-wrap:balance;
 }
 h2.display{font-size:clamp(2.1rem,3.8vw,3.1rem);line-height:1.1}
@@ -57,12 +57,12 @@ h3{
   font-family:var(--serif);font-weight:400;letter-spacing:-.012em;
   font-size:clamp(1.7rem,2.6vw,2.15rem);line-height:1.15;
 }
-.lede{font-size:1.1rem;line-height:1.65;color:var(--ink-soft);max-width:58ch}
+.lede{font-size:1.05rem;line-height:1.65;color:var(--ink-soft);max-width:54ch}
 
 /* ---------- buttons ---------- */
 .btn{
-  display:inline-block;font-size:.9rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;
-  padding:.78rem 1.5rem;border-radius:6px;border:1px solid transparent;
+  display:inline-block;font-size:.85rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;
+  padding:.72rem 1.5rem;border-radius:999px;border:1px solid transparent;
   transition:background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
 }
 .btn-primary{background:var(--green);color:var(--paper-on-green)}
@@ -72,7 +72,7 @@ h3{
 .btn-paper{background:var(--paper);color:var(--green)}
 .btn-paper:hover{background:var(--paper-on-green)}
 .textlink{
-  font-size:.9rem;font-weight:600;color:var(--green);
+  font-size:.85rem;font-weight:600;color:var(--green);
   border-bottom:1px solid transparent;transition:border-color .18s;
 }
 .textlink:hover{border-bottom-color:var(--green)}
@@ -120,11 +120,11 @@ header{
 .nav{display:flex;align-items:center;gap:2.5rem;height:72px}
 .wordmark{display:flex;align-items:center;color:var(--ink)}
 .logo-svg{height:23px;width:auto;display:block}
-.nav-links{display:flex;gap:2rem;font-size:.9rem;font-weight:500;color:var(--ink-soft)}
+.nav-links{display:flex;gap:2rem;font-size:.875rem;font-weight:500;color:var(--ink-soft)}
 .nav-links a{transition:color .18s}
 .nav-links a:hover{color:var(--ink)}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:1.75rem}
-.nav-right .signin{font-size:.9rem;font-weight:500;color:var(--ink-soft);transition:color .18s}
+.nav-right .signin{font-size:.875rem;font-weight:500;color:var(--ink-soft);transition:color .18s}
 .nav-right .signin:hover{color:var(--ink)}
 .nav .btn{padding:.6rem 1.2rem}
 
@@ -159,24 +159,30 @@ header{
   font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-soft);opacity:.75;text-align:center;padding:0 .5rem;
 }
-.litera{margin-top:1.75rem;font-size:.9rem;color:var(--ink-soft)}
+.litera{margin-top:1.75rem;font-size:.85rem;color:var(--ink-soft)}
 .litera strong{color:var(--ink);font-weight:600}
 
 /* ---------- section scaffold ---------- */
-.section{padding:clamp(6rem,10vw,9.5rem) 0 0}
+.section{padding:clamp(7rem,11vw,11rem) 0 0}
 .section-grid{
   display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);
   gap:clamp(2rem,5vw,5rem);align-items:start;
 }
 .section-grid > .label{padding-top:.5rem}
 
-/* ---------- stats ---------- */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
-.stat-num{
-  display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
-  font-size:clamp(2.2rem,3.6vw,3.2rem);line-height:1.05;white-space:nowrap;
+/* ---------- stats (Legora-style ruled rows) ---------- */
+.stat{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);
+  gap:1.5rem;align-items:start;
+  border-top:1px solid var(--hairline);
+  padding:1.75rem 0 2.5rem;
 }
-.stat p{margin-top:.8rem;font-size:.92rem;color:var(--ink-soft);line-height:1.55;max-width:24ch}
+.stat:last-child{border-bottom:1px solid var(--hairline);padding-bottom:1.75rem}
+.stat-num{
+  display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.03em;
+  font-size:clamp(3.25rem,7.5vw,6.5rem);line-height:.95;white-space:nowrap;
+}
+.stat p{font-size:.8rem;color:var(--ink-soft);line-height:1.5;padding-top:.35rem}
 
 /* ---------- problem ---------- */
 .problems{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
@@ -184,11 +190,11 @@ header{
   font-family:var(--serif);font-size:.95rem;font-style:italic;
   color:var(--green);display:block;margin-bottom:1.1rem;
 }
-.problem h3{font-size:1.45rem;margin-bottom:.7rem}
-.problem p{font-size:.95rem;color:var(--ink-soft);line-height:1.6}
+.problem h3{font-size:1.4rem;margin-bottom:.7rem}
+.problem p{font-size:.875rem;color:var(--ink-soft);line-height:1.6}
 
 /* ---------- statement ---------- */
-.statement{text-align:center;padding:clamp(7rem,12vw,11rem) 0}
+.statement{text-align:center;padding:clamp(8rem,14vw,13rem) 0}
 .statement p{
   font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
   font-size:clamp(1.9rem,4vw,3.25rem);line-height:1.22;
@@ -207,9 +213,9 @@ header{
 .product.flip .product-copy{order:2}
 .product .label{display:block;margin-bottom:1rem;color:var(--green)}
 .product h3{margin-bottom:1rem}
-.product .desc{color:var(--ink-soft);font-size:1rem;max-width:48ch}
+.product .desc{color:var(--ink-soft);font-size:.95rem;max-width:48ch}
 .product ul{margin-top:1.6rem;display:grid;gap:.75rem}
-.product li{position:relative;padding-left:1.6rem;font-size:.95rem;line-height:1.55}
+.product li{position:relative;padding-left:1.6rem;font-size:.875rem;line-height:1.55}
 .product li::before{
   content:"";position:absolute;left:0;top:.72em;
   width:.85rem;height:1px;background:var(--green);
@@ -243,10 +249,10 @@ header{
 
 /* ---------- shift table ---------- */
 .shift-table{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4.5rem)}
-.shift-col h3{font-size:1.05rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.1rem;border-bottom:1px solid var(--hairline)}
+.shift-col h3{font-size:1rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.1rem;border-bottom:1px solid var(--hairline)}
 .shift-col.reactive h3{color:var(--ink-soft)}
 .shift-col.proactive h3{color:var(--green)}
-.shift-col li{padding:1.1rem 0;border-bottom:1px solid var(--hairline);font-size:.97rem;line-height:1.55}
+.shift-col li{padding:1.1rem 0;border-bottom:1px solid var(--hairline);font-size:.9rem;line-height:1.55}
 .shift-col.reactive li{color:var(--ink-soft)}
 .shift-intro{max-width:52ch;color:var(--ink-soft);margin-bottom:2.5rem}
 
@@ -280,7 +286,7 @@ header{
 .quote-person{display:flex;align-items:center;gap:.95rem}
 .quote-person .avatar{width:52px;height:52px}
 .quote-feature .quote-person .avatar{width:64px;height:64px}
-.quote-person .who{font-size:.88rem;line-height:1.35}
+.quote-person .who{font-size:.82rem;line-height:1.35}
 .quote-person .who strong{font-weight:600;display:block}
 .quote-person .who span{color:var(--ink-soft)}
 .quotes{
@@ -288,7 +294,7 @@ header{
   gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(3rem,5vw,4rem);
 }
 .quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
-.quote blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.45;font-weight:400}
+.quote blockquote{font-family:var(--serif);font-size:1.08rem;line-height:1.45;font-weight:400}
 .quote .quote-person{margin-top:auto}
 
 /* ---------- closing ---------- */
@@ -323,7 +329,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 .foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
 .foot-col .label{display:block;margin-bottom:1.1rem;font-size:.66rem}
 .foot-col ul{display:grid;gap:.6rem}
-.foot-col a{font-size:.88rem;color:var(--ink-soft);transition:color .18s}
+.foot-col a{font-size:.82rem;color:var(--ink-soft);transition:color .18s}
 .foot-col a:hover{color:var(--ink)}
 .foot-base{
   margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.75rem;
@@ -345,7 +351,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   .product{grid-template-columns:1fr;gap:2.25rem}
   .product.flip .product-copy{order:0}
   .problems{grid-template-columns:1fr;gap:2.75rem}
-  .stats-row{grid-template-columns:1fr;gap:2.5rem}
+  .stat{grid-template-columns:1fr;gap:.6rem;padding:1.5rem 0 2rem}
   .quotes{grid-template-columns:1fr}
   .quote-feature{grid-template-columns:1fr;gap:2.25rem}
   .shift-table{grid-template-columns:1fr;row-gap:3rem}
@@ -353,7 +359,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   .nav-links{display:none}
 }
 @media (max-width:560px){
-  body{font-size:16px}
+  body{font-size:15px}
   .nav{gap:1rem}
   .nav-right{gap:1rem}
   .nav-right .signin{white-space:nowrap}
@@ -426,7 +432,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <section class="section">
     <div class="wrap section-grid">
       <span class="label reveal">The numbers</span>
-      <div class="stats-row">
+      <div class="stats-rows">
         <div class="stat reveal">
           <span class="stat-num">4.2 weeks</span>
           <p>Average head start: signal detected before the RFP exists</p>

@@ -27,7 +27,10 @@ Never #000 or #fff. No other hues.
 
 ## Typography
 - Display: Source Serif 4 (opsz), weights 300–400. Tight tracking (-0.03em on display, -0.015em elsewhere), line-height 1.04–1.12 on display sizes.
-- Body/UI: Geist, weights 400/500/600. 17px body, line-height 1.6. (Chosen as the closest free analog to the competitors' Suisse Intl / ABC Diatype; replaced Hanken Grotesk, which read too warm/humanist for the register.)
+- Body/UI: Geist, weights 400/500/600. 15px body, line-height 1.6; component text runs 13–14px (.82–.9rem). Legora's measured system runs 13–14px body. (Geist chosen as the closest free analog to the competitors' Suisse Intl / ABC Diatype; replaced Hanken Grotesk, which read too warm/humanist for the register.)
+- Scale contrast is the premium signal (measured on legora.com): body 14px vs stat numerals ~110px vs H1 60px. Ours: 15px body, display clamp to 76px, stat numerals clamp to 104px — the largest type on the page is the stats, not the hero.
+- Stats render as Legora-style ruled rows: hairline top, giant serif numeral left, 12–13px gray label in a right column. Never columns of equal cards.
+- Buttons are pills (border-radius 999px), 13–14px/600 text — measured from Legora (99px radius).
 - Rejected: Gloock as display serif (tested side by side; too heavy/fashion-editorial against Harvey's and Legora's light serifs).
 - Labels: Hanken Grotesk 600, 11–12px, uppercase, +0.12em tracking, ink-soft.
 - Scale ratio ≥1.25. H1 clamp(2.75rem, 5.5vw, 4.5rem).
