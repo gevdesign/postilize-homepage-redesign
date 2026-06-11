@@ -101,6 +101,12 @@ h3{
   font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
   color:var(--ink-soft);opacity:.75;
 }
+.photo{
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(13,16,22,.04),0 28px 56px -36px rgba(13,16,22,.25);
+  will-change:transform;
+}
+.photo img{display:block;width:100%;aspect-ratio:var(--ar,16/9);object-fit:cover}
 
 /* ---------- nav ---------- */
 header{
@@ -133,7 +139,7 @@ header{
   padding-bottom:1.25rem;
 }
 .hero-stage .wrap{transform:translateY(calc(-1 * var(--overlap)))}
-.hero-stage .frame{margin-bottom:calc(-1 * var(--overlap))}
+.hero-stage .frame,.hero-stage .photo{margin-bottom:calc(-1 * var(--overlap))}
 
 /* ---------- trust ---------- */
 .trust{padding-top:clamp(4rem,7vw,6rem)}
@@ -260,7 +266,10 @@ header{
   margin-top:clamp(3.5rem,6vw,5rem);
   padding-top:clamp(2.5rem,4vw,3.5rem);
   border-top:1px solid var(--hairline);
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
 }
+.quote-feature-copy{display:flex;flex-direction:column}
 .quote-feature blockquote{
   font-family:var(--serif);font-weight:300;letter-spacing:-.015em;
   font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.3;max-width:30ch;
@@ -336,6 +345,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   .problems{grid-template-columns:1fr;gap:2.75rem}
   .stats-row{grid-template-columns:1fr;gap:2.5rem}
   .quotes{grid-template-columns:1fr}
+  .quote-feature{grid-template-columns:1fr;gap:2.25rem}
   .shift-table{grid-template-columns:1fr;row-gap:3rem}
   .logos{grid-template-columns:repeat(3,1fr)}
   .nav-links{display:none}
@@ -385,11 +395,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   </section>
   <div class="hero-stage">
     <div class="wrap">
-      <figure class="frame reveal" data-parallax>
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="frame-media" style="--ar:16/9" data-ph="Product image · Proactive Signals dashboard · assets/hero-product.png">
-          <img src="assets/hero-product.png" alt="Proactive Signals dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
-        </div>
+      <figure class="photo reveal" data-parallax>
+        <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
       </figure>
     </div>
   </div>
@@ -512,11 +519,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <a class="textlink" href="#">Explore Proactive ERM &rarr;</a>
         </div>
         <div class="product-media reveal">
-          <figure class="frame" data-parallax>
-            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Relationship coverage · assets/product-erm.png">
-              <img src="assets/product-erm.png" alt="Relationship coverage" onerror="this.parentElement.classList.add('noimg');this.remove()">
-            </div>
+          <figure class="photo" data-parallax>
+            <img src="assets/photos/partner-on-phone.jpg" alt="A partner with a timely reason to call" style="--ar:4/3">
           </figure>
         </div>
       </article>
@@ -588,11 +592,16 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
       <div>
         <p class="pullquote reveal">&ldquo;The firms with the most pricing power have the deepest client relationships.&rdquo;</p>
         <figure class="quote-feature reveal">
-          <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
-          <figcaption class="quote-person">
-            <span class="avatar" data-ph="Photo"><img src="assets/headshots/merk.jpg" alt="Jeffrey Merk" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-            <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
-          </figcaption>
+          <div class="quote-feature-copy">
+            <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
+            <figcaption class="quote-person">
+              <span class="avatar" data-ph="Photo"><img src="assets/headshots/merk.jpg" alt="Jeffrey Merk" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+              <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
+            </figcaption>
+          </div>
+          <div class="photo quote-feature-photo">
+            <img src="assets/photos/client-conversation.jpg" alt="A partner in conversation with a client" style="--ar:4/3">
+          </div>
         </figure>
         <div class="quotes">
           <figure class="quote reveal">

@@ -37,6 +37,8 @@ What separates those three sites from ours today, verified against their live ma
 
 The page ships with gray placeholders at these exact paths and aspect ratios; committing a file at the path makes it appear, no code change needed.
 
+**Update:** editorial photography has arrived in `assets/photos/` (seven cinematic shots, web-optimized). Three are wired in: `partners-signing.jpg` (hero), `partner-on-phone.jpg` (dark ERM section), `client-conversation.jpg` (featured quote). The rest are available for product pages. Still wanted from the list below: the three product UI screenshots, the six monochrome logos, and the three headshots.
+
 | Path | Size | Content |
 |---|---|---|
 | `assets/hero-product.png` | 2880×1620 | Signals dashboard, light UI, clean demo data |
