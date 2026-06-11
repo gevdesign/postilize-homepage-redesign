@@ -126,7 +126,7 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
 /* ---------- hero: full-bleed photo, text overlaid ---------- */
 .hero{
   position:relative;min-height:100svh;
-  display:flex;flex-direction:column;justify-content:flex-end;
+  display:flex;flex-direction:column;justify-content:center;
   color:var(--paper);
 }
 .hero-bg{position:absolute;inset:0;overflow:hidden}
@@ -139,7 +139,7 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
   background:linear-gradient(200deg,rgba(13,16,22,.18) 0%,rgba(13,16,22,.05) 38%,rgba(13,16,22,.66) 88%),
              linear-gradient(0deg,rgba(0,61,38,.22),rgba(0,61,38,.10));
 }
-.hero-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(2.5rem,5vw,4.5rem)}
+.hero-content{position:relative;z-index:2;width:100%;padding-top:3rem;padding-bottom:clamp(7rem,12vh,9rem)}
 .hero .label{display:block;margin-bottom:1.25rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
 .hero h1{
   font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.02;
@@ -149,22 +149,33 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
 .hero .lede{margin-top:1.5rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:46ch}
 .hero-ctas{display:flex;gap:.9rem;margin-top:2.25rem;flex-wrap:wrap}
 
-/* ---------- trust: ink band ---------- */
-.trust{background:var(--ink);color:var(--paper);padding:2.5rem 0}
-.trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
-.trust .label{color:color-mix(in srgb,var(--paper) 55%,transparent);flex-shrink:0}
-.logos{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;flex:1}
-.logo{position:relative;height:44px;display:flex;align-items:center;justify-content:center}
-.logo img{max-height:32px;max-width:88%;width:auto;filter:brightness(0) invert(1);opacity:.85}
-.logo-tall img{max-height:42px}
-.logo.noimg{border:1px solid color-mix(in srgb,var(--paper) 16%,transparent);border-radius:4px}
-.logo.noimg::after{
-  content:attr(data-ph);
-  font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:color-mix(in srgb,var(--paper) 50%,transparent);text-align:center;padding:0 .5rem;
+/* ---------- hero logo marquee (Harvey treatment) ---------- */
+.hero-logos{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:1.9rem 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
 }
-.litera{margin-top:1.5rem;font-size:.85rem;color:color-mix(in srgb,var(--paper) 55%,transparent)}
-.litera strong{color:var(--paper);font-weight:600}
+.marquee{
+  display:flex;align-items:center;gap:clamp(3.5rem,6vw,5.5rem);
+  width:max-content;padding-right:clamp(3.5rem,6vw,5.5rem);
+}
+.logo{display:flex;align-items:center;flex-shrink:0}
+.logo img{width:auto;filter:brightness(0) invert(1);opacity:.68;transition:opacity .25s}
+.logo:hover img{opacity:1}
+.lg-hk img{height:21px}
+.lg-wc img{height:16px}
+.lg-lev img{height:38px}
+.lg-caravel img{height:14px}
+.lg-omnia img{height:19px}
+.lg-carahsoft img{height:19px}
+@media (prefers-reduced-motion:no-preference){
+  .marquee{animation:marquee 38s linear infinite}
+  .hero-logos:hover .marquee{animation-play-state:paused}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+}
+.litera-side{margin-top:2.25rem;font-size:.8rem;color:var(--ink-soft)}
+.litera-side strong{color:var(--ink);font-weight:600}
 
 /* ---------- opportunity: sticky argument + giant stat rows ---------- */
 .opportunity .wrap{
@@ -193,7 +204,7 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
   color:var(--ink);
 }
 .stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.4rem}
-.stat--wide .stat-num{font-size:clamp(2.9rem,5.4vw,5rem)}
+.stat--wide .stat-num{font-size:clamp(2.6rem,4.5vw,4.4rem)}
 
 /* ---------- statement: emerald drench ---------- */
 .statement{
@@ -378,13 +389,13 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 @media (max-width:920px){
   .opportunity .wrap{grid-template-columns:1fr;gap:3rem}
   .opp-left{position:static}
+  .stat{grid-template-columns:1fr;gap:.75rem;padding:2rem 0 2.5rem}
   .product-signals .wrap,.product-cleanse .wrap{grid-template-columns:1fr;gap:2.5rem}
   .erm-grid{grid-template-columns:1fr;min-height:0}
   .erm-media{aspect-ratio:16/10;position:relative}
   .erm-copy{max-width:none;padding:clamp(3rem,7vw,5rem) var(--gutter)}
   .shift-table{grid-template-columns:1fr;row-gap:3rem}
   .quotes{grid-template-columns:1fr}
-  .logos{grid-template-columns:repeat(3,1fr)}
   .nav-links{display:none}
 }
 @media (max-width:560px){
@@ -394,7 +405,6 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   .nav .btn{padding:.5rem .95rem}
   .logo-svg{height:18px}
   .foot-cols{flex-direction:column;gap:2rem}
-  .logos{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -431,23 +441,21 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <a class="btn btn-ghost-paper" href="#products">See the platform</a>
       </div>
     </div>
-  </section>
-
-  <!-- Trust: ink band -->
-  <section class="trust">
-    <div class="wrap">
-      <div class="trust-row reveal">
-        <span class="label">Trusted by leading firms</span>
-        <div class="logos">
-          <span class="logo" data-ph="Holland &amp; Knight"><img src="assets/logos/holland-knight.png" alt="Holland &amp; Knight" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="White &amp; Case"><img src="assets/logos/white-case.png" alt="White &amp; Case" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo logo-tall" data-ph="Levenfeld Pearlstein"><img src="assets/logos/levenfeld.png?v=3" alt="Levenfeld Pearlstein" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Caravel"><img src="assets/logos/caravel.png" alt="Caravel" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Omnia"><img src="assets/logos/omnia.png" alt="Omnia" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-          <span class="logo" data-ph="Carahsoft"><img src="assets/logos/carahsoft.png" alt="Carahsoft" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-        </div>
+    <div class="hero-logos reveal" aria-label="Trusted by leading firms">
+      <div class="marquee">
+        <span class="logo lg-hk"><img src="assets/logos/holland-knight.png" alt="Holland &amp; Knight"></span>
+        <span class="logo lg-wc"><img src="assets/logos/white-case.png" alt="White &amp; Case"></span>
+        <span class="logo lg-lev"><img src="assets/logos/levenfeld.png?v=3" alt="Levenfeld Pearlstein"></span>
+        <span class="logo lg-caravel"><img src="assets/logos/caravel.png" alt="Caravel"></span>
+        <span class="logo lg-omnia"><img src="assets/logos/omnia.png" alt="Omnia"></span>
+        <span class="logo lg-carahsoft"><img src="assets/logos/carahsoft.png" alt="Carahsoft"></span>
+        <span class="logo lg-hk" aria-hidden="true"><img src="assets/logos/holland-knight.png" alt=""></span>
+        <span class="logo lg-wc" aria-hidden="true"><img src="assets/logos/white-case.png" alt=""></span>
+        <span class="logo lg-lev" aria-hidden="true"><img src="assets/logos/levenfeld.png?v=3" alt=""></span>
+        <span class="logo lg-caravel" aria-hidden="true"><img src="assets/logos/caravel.png" alt=""></span>
+        <span class="logo lg-omnia" aria-hidden="true"><img src="assets/logos/omnia.png" alt=""></span>
+        <span class="logo lg-carahsoft" aria-hidden="true"><img src="assets/logos/carahsoft.png" alt=""></span>
       </div>
-      <p class="litera reveal">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
     </div>
   </section>
 
@@ -461,6 +469,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <p>Raising rates covers the gap for a while, but clients are already questioning the tradeoff.</p>
         <p>The durable move is to find client needs earlier, expand existing relationships, and act before competitors do.</p>
         <a class="btn btn-primary" href="#products">See how it works</a>
+        <p class="litera-side">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
       </div>
       <div class="opp-right">
         <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->

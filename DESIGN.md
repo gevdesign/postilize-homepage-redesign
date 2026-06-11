@@ -36,6 +36,9 @@ Never #000 or #fff. No other hues.
 - Scale ratio ≥1.25. H1 clamp(2.75rem, 5.5vw, 4.5rem).
 - Body measure ≤ 65ch.
 
+## Logo wall (Harvey research, June 2026)
+Harvey's customer strip, observed on the rendered site: a slow marquee overlaid at the bottom of the dark hero (not a separate band), no "trusted by" label, every wordmark optically normalized to a common x-height (~16-21px) regardless of file dimensions, muted to ~60-70% white, equal wide gaps, edge fade via mask. Premium = optical evenness + quiet, never raw file sizes. Ours implements this with per-logo height classes (.lg-*), 68% opacity, 38s loop, hover pause, reduced-motion fallback to static.
+
 ## Full-bleed system (siteinspire research, June 2026)
 Benchmarks: Quinn Global Tax Law (quinngtl.com) and Old Tom Capital (oldtomcapital.com), both by Highly Necessary; plus Legora/Happy Robot heroes. The anti-pattern ("AI slop"): centered hero text above a contained rounded image, one repeated section-grid, single background color throughout.
 
