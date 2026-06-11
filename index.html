@@ -18,11 +18,13 @@
   --field:#E9E9E7;
   --green:#005032;
   --green-deep:#003D26;
+  --green-soft:#8FB9A3;
   --paper-on-green:#FAFAF9;
   --serif:"Source Serif 4",Georgia,serif;
   --sans:"Hanken Grotesk",-apple-system,"Helvetica Neue",sans-serif;
   --w:1120px;
   --gutter:clamp(1.5rem,5vw,3rem);
+  --ease:cubic-bezier(.22,1,.36,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -46,8 +48,8 @@ ul{list-style:none}
 }
 .display{
   font-family:var(--serif);font-weight:300;
-  letter-spacing:-.02em;line-height:1.06;
-  font-size:clamp(2.75rem,5.5vw,4.5rem);
+  letter-spacing:-.022em;line-height:1.04;
+  font-size:clamp(3rem,6vw,5.25rem);
   text-wrap:balance;
 }
 h2.display{font-size:clamp(2.1rem,3.8vw,3.1rem);line-height:1.1}
@@ -59,9 +61,9 @@ h3{
 
 /* ---------- buttons ---------- */
 .btn{
-  display:inline-block;font-size:.9rem;font-weight:600;letter-spacing:.01em;
+  display:inline-block;font-size:.9rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;
   padding:.78rem 1.5rem;border-radius:6px;border:1px solid transparent;
-  transition:background-color .18s cubic-bezier(.22,1,.36,1),border-color .18s cubic-bezier(.22,1,.36,1),color .18s cubic-bezier(.22,1,.36,1);
+  transition:background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
 }
 .btn-primary{background:var(--green);color:var(--paper-on-green)}
 .btn-primary:hover{background:var(--green-deep)}
@@ -75,14 +77,29 @@ h3{
 }
 .textlink:hover{border-bottom-color:var(--green)}
 
-/* ---------- placeholders ---------- */
-.ph{
-  background:var(--field);border:1px solid var(--hairline);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
+/* ---------- framed media (placeholder-fallback) ---------- */
+.frame{
+  position:relative;border-radius:12px;overflow:hidden;
+  background:var(--paper);border:1px solid var(--hairline);
+  box-shadow:0 1px 2px rgba(13,16,22,.04),0 28px 56px -36px rgba(13,16,22,.25);
+  will-change:transform;
 }
-.ph span{
-  font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-soft);opacity:.75;text-align:center;padding:0 1rem;
+.frame-bar{
+  display:flex;gap:6px;align-items:center;height:34px;padding:0 14px;
+  background:#F2F2F0;border-bottom:1px solid var(--hairline);
+}
+.frame-bar i{width:8px;height:8px;border-radius:50%;background:var(--hairline)}
+.frame-media{position:relative;aspect-ratio:var(--ar,16/9);background:var(--field)}
+.frame-media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .7s var(--ease);
+}
+.frame:hover .frame-media img{transform:scale(1.02)}
+.frame-media.noimg::after{
+  content:attr(data-ph);position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:0 1rem;
+  font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-soft);opacity:.75;
 }
 
 /* ---------- nav ---------- */
@@ -104,25 +121,36 @@ header{
 .nav .btn{padding:.6rem 1.2rem}
 
 /* ---------- hero ---------- */
-.hero{padding-top:clamp(5rem,9vw,8.5rem)}
+.hero{padding-top:clamp(5rem,9vw,8rem)}
 .hero .label{display:block;margin-bottom:1.5rem;color:var(--green)}
 .hero h1{max-width:15ch}
 .hero .lede{margin-top:1.75rem}
 .hero-ctas{display:flex;gap:.9rem;margin-top:2.5rem;flex-wrap:wrap}
-.hero-media{margin-top:clamp(3.5rem,6vw,5.5rem)}
-.hero-media .ph{aspect-ratio:16/8.5;width:100%}
+.hero-stage{
+  --overlap:clamp(2.5rem,5vw,4.5rem);
+  margin-top:clamp(5.5rem,9vw,8rem);
+  background:var(--field);
+  padding-bottom:1.25rem;
+}
+.hero-stage .wrap{transform:translateY(calc(-1 * var(--overlap)))}
+.hero-stage .frame{margin-bottom:calc(-1 * var(--overlap))}
 
 /* ---------- trust ---------- */
-.trust{
-  margin-top:clamp(4rem,7vw,6rem);
-  border-top:1px solid var(--hairline);
-  padding:2.75rem 0 0;
-}
+.trust{padding-top:clamp(4rem,7vw,6rem)}
 .trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
 .trust .label{flex-shrink:0}
 .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;flex:1}
-.logos .ph{height:44px;border-radius:4px}
-.logos .ph span{font-size:.62rem;letter-spacing:.08em}
+.logo{
+  position:relative;height:48px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo img{max-height:32px;max-width:88%;width:auto;display:block}
+.logo.noimg{background:var(--field);border:1px solid var(--hairline);border-radius:4px}
+.logo.noimg::after{
+  content:attr(data-ph);
+  font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);opacity:.75;text-align:center;padding:0 .5rem;
+}
 .litera{margin-top:1.75rem;font-size:.9rem;color:var(--ink-soft)}
 .litera strong{color:var(--ink);font-weight:600}
 
@@ -134,6 +162,14 @@ header{
 }
 .section-grid > .label{padding-top:.5rem}
 
+/* ---------- stats ---------- */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
+.stat-num{
+  display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(2.2rem,3.6vw,3.2rem);line-height:1.05;white-space:nowrap;
+}
+.stat p{margin-top:.8rem;font-size:.92rem;color:var(--ink-soft);line-height:1.55;max-width:24ch}
+
 /* ---------- problem ---------- */
 .problems{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
 .problem .num{
@@ -144,10 +180,7 @@ header{
 .problem p{font-size:.95rem;color:var(--ink-soft);line-height:1.6}
 
 /* ---------- statement ---------- */
-.statement{
-  text-align:center;
-  padding:clamp(7rem,12vw,11rem) 0;
-}
+.statement{text-align:center;padding:clamp(7rem,12vw,11rem) 0}
 .statement p{
   font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
   font-size:clamp(1.9rem,4vw,3.25rem);line-height:1.22;
@@ -162,18 +195,13 @@ header{
 .product{
   display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
   gap:clamp(2.5rem,6vw,6rem);align-items:center;
-  padding:clamp(3.5rem,6vw,5.5rem) 0;
 }
-.product + .product{border-top:1px solid var(--hairline)}
-.product:nth-of-type(even) .product-copy{order:2}
+.product.flip .product-copy{order:2}
 .product .label{display:block;margin-bottom:1rem;color:var(--green)}
 .product h3{margin-bottom:1rem}
 .product .desc{color:var(--ink-soft);font-size:1rem;max-width:48ch}
 .product ul{margin-top:1.6rem;display:grid;gap:.75rem}
-.product li{
-  position:relative;padding-left:1.6rem;
-  font-size:.95rem;line-height:1.55;
-}
+.product li{position:relative;padding-left:1.6rem;font-size:.95rem;line-height:1.55}
 .product li::before{
   content:"";position:absolute;left:0;top:.72em;
   width:.85rem;height:1px;background:var(--green);
@@ -183,19 +211,36 @@ header{
   font-size:1rem;color:var(--green);
 }
 .product .textlink{display:inline-block;margin-top:1.75rem}
-.product-media .ph{aspect-ratio:4/3;width:100%}
+.products .product{padding-bottom:clamp(4rem,7vw,6rem)}
+.products-tail .product{padding-top:clamp(4rem,7vw,6rem)}
+
+/* dark mid-page section (ERM) */
+.product-dark{
+  background:var(--ink);color:var(--paper);
+  padding:clamp(5rem,8vw,7.5rem) 0;
+}
+.product-dark .label{color:var(--green-soft)}
+.product-dark .desc{color:color-mix(in srgb,var(--paper) 64%,transparent)}
+.product-dark .product li::before{background:var(--green-soft)}
+.product-dark .textlink{color:var(--green-soft)}
+.product-dark .textlink:hover{border-bottom-color:var(--green-soft)}
+.product-dark .frame{
+  border-color:color-mix(in srgb,var(--paper) 16%,transparent);
+  box-shadow:0 28px 56px -36px rgba(0,0,0,.6);
+}
+.product-dark .frame-bar{background:#161B22;border-bottom-color:color-mix(in srgb,var(--paper) 12%,transparent)}
+.product-dark .frame-bar i{background:color-mix(in srgb,var(--paper) 18%,transparent)}
+.product-dark .frame-media{background:#161B22}
+.product-dark .frame-media.noimg::after{color:color-mix(in srgb,var(--paper) 55%,transparent)}
 
 /* ---------- shift table ---------- */
 .shift-table{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4.5rem)}
-.shift-col h3{font-size:1.05rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.3rem;border-bottom:1px solid var(--hairline)}
+.shift-col h3{font-size:1.05rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.1rem;border-bottom:1px solid var(--hairline)}
 .shift-col.reactive h3{color:var(--ink-soft)}
 .shift-col.proactive h3{color:var(--green)}
-.shift-col li{
-  padding:1.3rem 0;border-bottom:1px solid var(--hairline);
-  font-size:.97rem;line-height:1.55;
-}
+.shift-col li{padding:1.1rem 0;border-bottom:1px solid var(--hairline);font-size:.97rem;line-height:1.55}
 .shift-col.reactive li{color:var(--ink-soft)}
-.shift-intro{max-width:52ch;color:var(--ink-soft);margin-bottom:3rem}
+.shift-intro{max-width:52ch;color:var(--ink-soft);margin-bottom:2.5rem}
 
 /* ---------- proof ---------- */
 .pullquote{
@@ -203,38 +248,60 @@ header{
   font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.25;
   max-width:26ch;text-wrap:balance;
 }
-.quotes{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(3.5rem,6vw,5rem);
+.avatar{
+  position:relative;border-radius:50%;overflow:hidden;flex-shrink:0;
+  background:var(--field);border:1px solid var(--hairline);
 }
-.quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
-.quote blockquote{
-  font-family:var(--serif);font-size:1.12rem;line-height:1.45;font-weight:400;
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar.noimg::after{
+  content:"";position:absolute;inset:0;
 }
-.quote-person{display:flex;align-items:center;gap:.85rem;margin-top:auto}
-.quote-person .ph{width:40px;height:40px;border-radius:50%;flex-shrink:0}
-.quote-person .ph span{font-size:.55rem;letter-spacing:.05em;padding:0}
-.quote-person .who{font-size:.85rem;line-height:1.35}
+.quote-feature{
+  margin-top:clamp(3.5rem,6vw,5rem);
+  padding-top:clamp(2.5rem,4vw,3.5rem);
+  border-top:1px solid var(--hairline);
+}
+.quote-feature blockquote{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.015em;
+  font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.3;max-width:30ch;
+}
+.quote-feature .quote-person{margin-top:2rem}
+.quote-person{display:flex;align-items:center;gap:.95rem}
+.quote-person .avatar{width:52px;height:52px}
+.quote-feature .quote-person .avatar{width:64px;height:64px}
+.quote-person .who{font-size:.88rem;line-height:1.35}
 .quote-person .who strong{font-weight:600;display:block}
 .quote-person .who span{color:var(--ink-soft)}
+.quotes{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(3rem,5vw,4rem);
+}
+.quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
+.quote blockquote{font-family:var(--serif);font-size:1.12rem;line-height:1.45;font-weight:400}
+.quote .quote-person{margin-top:auto}
 
 /* ---------- closing ---------- */
 .closing{
+  position:relative;overflow:hidden;
   margin-top:clamp(7rem,11vw,10rem);
   background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
   color:var(--paper-on-green);
   text-align:center;
-  padding:clamp(6rem,10vw,9rem) 0;
+  padding:clamp(6rem,10vw,9rem) 0 clamp(9rem,14vw,13rem);
 }
+.closing .wrap{position:relative;z-index:1}
 .closing h2{
   font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
   font-size:clamp(2.4rem,4.5vw,3.75rem);line-height:1.1;text-wrap:balance;
 }
-.closing p{
-  margin:1.5rem auto 0;max-width:44ch;
-  color:color-mix(in srgb,var(--paper-on-green) 72%,transparent);
-}
+.closing p{margin:1.5rem auto 0;max-width:44ch;color:color-mix(in srgb,var(--paper-on-green) 72%,transparent)}
 .closing .btn{margin-top:2.5rem}
+.watermark{
+  position:absolute;left:50%;bottom:0;z-index:0;
+  width:min(92%,1040px);height:auto;
+  transform:translate(-50%,38%);
+  color:var(--paper-on-green);opacity:.07;pointer-events:none;
+}
 
 /* ---------- footer ---------- */
 footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
@@ -256,17 +323,18 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 
 /* ---------- reveal ---------- */
 @media (prefers-reduced-motion:no-preference){
-  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
   .js .reveal.in{opacity:1;transform:none}
-  .hero .reveal{transition-duration:.8s}
+  .hero .reveal,.hero-stage .reveal{transition-duration:.8s}
 }
 
 /* ---------- responsive ---------- */
 @media (max-width:920px){
   .section-grid{grid-template-columns:1fr;gap:2.25rem}
   .product{grid-template-columns:1fr;gap:2.25rem}
-  .product:nth-of-type(even) .product-copy{order:0}
+  .product.flip .product-copy{order:0}
   .problems{grid-template-columns:1fr;gap:2.75rem}
+  .stats-row{grid-template-columns:1fr;gap:2.5rem}
   .quotes{grid-template-columns:1fr}
   .shift-table{grid-template-columns:1fr;row-gap:3rem}
   .logos{grid-template-columns:repeat(3,1fr)}
@@ -274,6 +342,11 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 }
 @media (max-width:560px){
   body{font-size:16px}
+  .nav{gap:1rem}
+  .nav-right{gap:1rem}
+  .nav-right .signin{white-space:nowrap}
+  .nav .btn{padding:.55rem .95rem}
+  .logo-svg{height:19px}
   .foot-cols{flex-direction:column;gap:2rem}
   .logos{grid-template-columns:repeat(2,1fr)}
 }
@@ -308,11 +381,18 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <a class="btn btn-primary" href="#demo">Book a demo</a>
         <a class="btn btn-ghost" href="#products">See the platform</a>
       </div>
-      <div class="hero-media reveal">
-        <div class="ph"><span>Product image · Proactive Signals dashboard</span></div>
-      </div>
     </div>
   </section>
+  <div class="hero-stage">
+    <div class="wrap">
+      <figure class="frame reveal" data-parallax>
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="frame-media" style="--ar:16/9" data-ph="Product image · Proactive Signals dashboard · assets/hero-product.png">
+          <img src="assets/hero-product.png" alt="Proactive Signals dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
+        </div>
+      </figure>
+    </div>
+  </div>
 
   <!-- Trust -->
   <section class="trust">
@@ -320,15 +400,37 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
       <div class="trust-row reveal">
         <span class="label">Trusted by leading firms</span>
         <div class="logos">
-          <div class="ph"><span>Holland &amp; Knight</span></div>
-          <div class="ph"><span>White &amp; Case</span></div>
-          <div class="ph"><span>Dentons</span></div>
-          <div class="ph"><span>Levenfeld Pearlstein</span></div>
-          <div class="ph"><span>Caravel</span></div>
-          <div class="ph"><span>Carahsoft</span></div>
+          <span class="logo" data-ph="Holland &amp; Knight"><img src="assets/logos/holland-knight.svg" alt="Holland &amp; Knight" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="White &amp; Case"><img src="assets/logos/white-case.svg" alt="White &amp; Case" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Dentons"><img src="assets/logos/dentons.svg" alt="Dentons" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Levenfeld Pearlstein"><img src="assets/logos/levenfeld.svg" alt="Levenfeld Pearlstein" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Caravel"><img src="assets/logos/caravel.svg" alt="Caravel" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+          <span class="logo" data-ph="Carahsoft"><img src="assets/logos/carahsoft.svg" alt="Carahsoft" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
         </div>
       </div>
       <p class="litera reveal">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
+  <section class="section">
+    <div class="wrap section-grid">
+      <span class="label reveal">The numbers</span>
+      <div class="stats-row">
+        <div class="stat reveal">
+          <span class="stat-num">4.2 weeks</span>
+          <p>Average head start: signal detected before the RFP exists</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num">1,000+</span>
+          <p>Client signals surfaced every week</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num">AmLaw 200</span>
+          <p>Firms growing with the Proactive suite</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -363,14 +465,13 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
   </section>
 
-  <!-- Products -->
+  <!-- Products: Signals -->
   <section class="products" id="products">
     <div class="wrap">
       <div class="products-head reveal">
         <span class="label">The platform</span>
         <h2 class="display">Three tools. One outcome: more matters.</h2>
       </div>
-
       <article class="product">
         <div class="product-copy reveal">
           <span class="label">Proactive Signals</span>
@@ -384,11 +485,21 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <a class="textlink" href="#">Explore Proactive Signals &rarr;</a>
         </div>
         <div class="product-media reveal">
-          <div class="ph"><span>Product image · Signals feed</span></div>
+          <figure class="frame" data-parallax>
+            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Signals feed · assets/product-signals.png">
+              <img src="assets/product-signals.png" alt="Signals feed" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            </div>
+          </figure>
         </div>
       </article>
+    </div>
+  </section>
 
-      <article class="product">
+  <!-- Products: ERM (dark) -->
+  <section class="product-dark">
+    <div class="wrap">
+      <article class="product flip">
         <div class="product-copy reveal">
           <span class="label">Proactive ERM</span>
           <h3>Grow the clients you already have.</h3>
@@ -401,10 +512,20 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <a class="textlink" href="#">Explore Proactive ERM &rarr;</a>
         </div>
         <div class="product-media reveal">
-          <div class="ph"><span>Product image · Relationship coverage</span></div>
+          <figure class="frame" data-parallax>
+            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Relationship coverage · assets/product-erm.png">
+              <img src="assets/product-erm.png" alt="Relationship coverage" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            </div>
+          </figure>
         </div>
       </article>
+    </div>
+  </section>
 
+  <!-- Products: Cleanse -->
+  <section class="products-tail">
+    <div class="wrap">
       <article class="product">
         <div class="product-copy reveal">
           <span class="label">Proactive Cleanse</span>
@@ -419,7 +540,12 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <a class="textlink" href="#">Explore Proactive Cleanse &rarr;</a>
         </div>
         <div class="product-media reveal">
-          <div class="ph"><span>Product image · Data hygiene</span></div>
+          <figure class="frame" data-parallax>
+            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
+              <img src="assets/product-cleanse.png" alt="Data hygiene" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            </div>
+          </figure>
         </div>
       </article>
     </div>
@@ -461,25 +587,25 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
       <span class="label reveal">What practitioners say</span>
       <div>
         <p class="pullquote reveal">&ldquo;The firms with the most pricing power have the deepest client relationships.&rdquo;</p>
+        <figure class="quote-feature reveal">
+          <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
+          <figcaption class="quote-person">
+            <span class="avatar" data-ph="Photo"><img src="assets/headshots/merk.jpg" alt="Jeffrey Merk" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+            <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
+          </figcaption>
+        </figure>
         <div class="quotes">
-          <figure class="quote reveal">
-            <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
-            <figcaption class="quote-person">
-              <div class="ph"><span>Photo</span></div>
-              <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
-            </figcaption>
-          </figure>
           <figure class="quote reveal">
             <blockquote>&ldquo;If I&rsquo;m a rainmaker, this is the information I really want to know.&rdquo;</blockquote>
             <figcaption class="quote-person">
-              <div class="ph"><span>Photo</span></div>
+              <span class="avatar" data-ph="Photo"><img src="assets/headshots/baylis.jpg" alt="Kristen Baylis" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
               <div class="who"><strong>Kristen Baylis</strong><span>Legal</span></div>
             </figcaption>
           </figure>
           <figure class="quote reveal">
             <blockquote>&ldquo;It would save rainmakers a ton of time and give them a lot of their life back.&rdquo;</blockquote>
             <figcaption class="quote-person">
-              <div class="ph"><span>Photo</span></div>
+              <span class="avatar" data-ph="Photo"><img src="assets/headshots/rubin.jpg" alt="Jessica Rubin" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
               <div class="who"><strong>Jessica Rubin</strong><span>Legal</span></div>
             </figcaption>
           </figure>
@@ -490,6 +616,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 
   <!-- Closing -->
   <section class="closing" id="demo">
+    <svg class="watermark" viewBox="0 0 338 56" fill="none" aria-hidden="true"><use href="#postilize-logo"/></svg>
     <div class="wrap">
       <h2 class="reveal">See what your firm is missing.</h2>
       <p class="reveal">A 30-minute walkthrough of Signals, ERM, and Cleanse, with your firm&rsquo;s market in mind.</p>
@@ -548,9 +675,27 @@ const io = new IntersectionObserver((entries) => {
   }
 }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  if (el.closest('.hero')) el.style.transitionDelay = `${Math.min(i * 90, 450)}ms`;
+  if (el.closest('.hero') || el.closest('.hero-stage')) el.style.transitionDelay = `${Math.min(i * 80, 400)}ms`;
   io.observe(el);
 });
+
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const frames = Array.from(document.querySelectorAll('[data-parallax]'));
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const vh = innerHeight;
+    for (const f of frames) {
+      const r = f.getBoundingClientRect();
+      if (r.bottom < -40 || r.top > vh + 40) continue;
+      const p = ((r.top + r.height / 2) - vh / 2) / vh;
+      f.style.transform = `translateY(${(-p * 24).toFixed(1)}px)`;
+    }
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+}
 </script>
 
 </body>
