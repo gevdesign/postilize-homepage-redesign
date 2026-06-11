@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Postilize — Business-of-law AI</title>
+<meta name="description" content="AI is shrinking matters. Postilize helps law firms surface client needs earlier, grow existing relationships, and make partner follow-up happen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,260..500;1,8..60,300..400&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --paper:#FAFAF9;
+  --ink:#0D1016;
+  --ink-soft:#6B6B6B;
+  --hairline:#E4E4E2;
+  --field:#E9E9E7;
+  --green:#005032;
+  --green-deep:#003D26;
+  --paper-on-green:#FAFAF9;
+  --serif:"Source Serif 4",Georgia,serif;
+  --sans:"Hanken Grotesk",-apple-system,"Helvetica Neue",sans-serif;
+  --w:1120px;
+  --gutter:clamp(1.5rem,5vw,3rem);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.wrap{max-width:var(--w);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ---------- type ---------- */
+.label{
+  font-size:.72rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.display{
+  font-family:var(--serif);font-weight:300;
+  letter-spacing:-.02em;line-height:1.06;
+  font-size:clamp(2.75rem,5.5vw,4.5rem);
+  text-wrap:balance;
+}
+h2.display{font-size:clamp(2.1rem,3.8vw,3.1rem);line-height:1.1}
+h3{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.012em;
+  font-size:clamp(1.7rem,2.6vw,2.15rem);line-height:1.15;
+}
+.lede{font-size:1.1rem;line-height:1.65;color:var(--ink-soft);max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;font-size:.9rem;font-weight:600;letter-spacing:.01em;
+  padding:.78rem 1.5rem;border-radius:6px;border:1px solid transparent;
+  transition:background-color .18s cubic-bezier(.22,1,.36,1),border-color .18s cubic-bezier(.22,1,.36,1),color .18s cubic-bezier(.22,1,.36,1);
+}
+.btn-primary{background:var(--green);color:var(--paper-on-green)}
+.btn-primary:hover{background:var(--green-deep)}
+.btn-ghost{border-color:var(--hairline);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-soft)}
+.btn-paper{background:var(--paper);color:var(--green)}
+.btn-paper:hover{background:var(--paper-on-green)}
+.textlink{
+  font-size:.9rem;font-weight:600;color:var(--green);
+  border-bottom:1px solid transparent;transition:border-color .18s;
+}
+.textlink:hover{border-bottom-color:var(--green)}
+
+/* ---------- placeholders ---------- */
+.ph{
+  background:var(--field);border:1px solid var(--hairline);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.ph span{
+  font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-soft);opacity:.75;text-align:center;padding:0 1rem;
+}
+
+/* ---------- nav ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline);
+}
+.nav{display:flex;align-items:center;gap:2.5rem;height:72px}
+.wordmark{display:flex;align-items:center;color:var(--ink)}
+.logo-svg{height:23px;width:auto;display:block}
+.nav-links{display:flex;gap:2rem;font-size:.9rem;font-weight:500;color:var(--ink-soft)}
+.nav-links a{transition:color .18s}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:1.75rem}
+.nav-right .signin{font-size:.9rem;font-weight:500;color:var(--ink-soft);transition:color .18s}
+.nav-right .signin:hover{color:var(--ink)}
+.nav .btn{padding:.6rem 1.2rem}
+
+/* ---------- hero ---------- */
+.hero{padding-top:clamp(5rem,9vw,8.5rem)}
+.hero .label{display:block;margin-bottom:1.5rem;color:var(--green)}
+.hero h1{max-width:15ch}
+.hero .lede{margin-top:1.75rem}
+.hero-ctas{display:flex;gap:.9rem;margin-top:2.5rem;flex-wrap:wrap}
+.hero-media{margin-top:clamp(3.5rem,6vw,5.5rem)}
+.hero-media .ph{aspect-ratio:16/8.5;width:100%}
+
+/* ---------- trust ---------- */
+.trust{
+  margin-top:clamp(4rem,7vw,6rem);
+  border-top:1px solid var(--hairline);
+  padding:2.75rem 0 0;
+}
+.trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.trust .label{flex-shrink:0}
+.logos{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;flex:1}
+.logos .ph{height:44px;border-radius:4px}
+.logos .ph span{font-size:.62rem;letter-spacing:.08em}
+.litera{margin-top:1.75rem;font-size:.9rem;color:var(--ink-soft)}
+.litera strong{color:var(--ink);font-weight:600}
+
+/* ---------- section scaffold ---------- */
+.section{padding:clamp(6rem,10vw,9.5rem) 0 0}
+.section-grid{
+  display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);
+  gap:clamp(2rem,5vw,5rem);align-items:start;
+}
+.section-grid > .label{padding-top:.5rem}
+
+/* ---------- problem ---------- */
+.problems{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
+.problem .num{
+  font-family:var(--serif);font-size:.95rem;font-style:italic;
+  color:var(--green);display:block;margin-bottom:1.1rem;
+}
+.problem h3{font-size:1.45rem;margin-bottom:.7rem}
+.problem p{font-size:.95rem;color:var(--ink-soft);line-height:1.6}
+
+/* ---------- statement ---------- */
+.statement{
+  text-align:center;
+  padding:clamp(7rem,12vw,11rem) 0;
+}
+.statement p{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,4vw,3.25rem);line-height:1.22;
+  max-width:24ch;margin:0 auto;text-wrap:balance;
+}
+.statement em{font-style:italic;color:var(--green)}
+
+/* ---------- products ---------- */
+.products{border-top:1px solid var(--hairline);padding-top:clamp(5rem,8vw,7.5rem)}
+.products-head{max-width:46ch;margin-bottom:clamp(4rem,7vw,6rem)}
+.products-head .label{display:block;margin-bottom:1.25rem}
+.product{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+  padding:clamp(3.5rem,6vw,5.5rem) 0;
+}
+.product + .product{border-top:1px solid var(--hairline)}
+.product:nth-of-type(even) .product-copy{order:2}
+.product .label{display:block;margin-bottom:1rem;color:var(--green)}
+.product h3{margin-bottom:1rem}
+.product .desc{color:var(--ink-soft);font-size:1rem;max-width:48ch}
+.product ul{margin-top:1.6rem;display:grid;gap:.75rem}
+.product li{
+  position:relative;padding-left:1.6rem;
+  font-size:.95rem;line-height:1.55;
+}
+.product li::before{
+  content:"";position:absolute;left:0;top:.72em;
+  width:.85rem;height:1px;background:var(--green);
+}
+.product .note{
+  margin-top:1.5rem;font-family:var(--serif);font-style:italic;
+  font-size:1rem;color:var(--green);
+}
+.product .textlink{display:inline-block;margin-top:1.75rem}
+.product-media .ph{aspect-ratio:4/3;width:100%}
+
+/* ---------- shift table ---------- */
+.shift-table{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4.5rem)}
+.shift-col h3{font-size:1.05rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.3rem;border-bottom:1px solid var(--hairline)}
+.shift-col.reactive h3{color:var(--ink-soft)}
+.shift-col.proactive h3{color:var(--green)}
+.shift-col li{
+  padding:1.3rem 0;border-bottom:1px solid var(--hairline);
+  font-size:.97rem;line-height:1.55;
+}
+.shift-col.reactive li{color:var(--ink-soft)}
+.shift-intro{max-width:52ch;color:var(--ink-soft);margin-bottom:3rem}
+
+/* ---------- proof ---------- */
+.pullquote{
+  font-family:var(--serif);font-weight:300;font-style:italic;letter-spacing:-.015em;
+  font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.25;
+  max-width:26ch;text-wrap:balance;
+}
+.quotes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(3.5rem,6vw,5rem);
+}
+.quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
+.quote blockquote{
+  font-family:var(--serif);font-size:1.12rem;line-height:1.45;font-weight:400;
+}
+.quote-person{display:flex;align-items:center;gap:.85rem;margin-top:auto}
+.quote-person .ph{width:40px;height:40px;border-radius:50%;flex-shrink:0}
+.quote-person .ph span{font-size:.55rem;letter-spacing:.05em;padding:0}
+.quote-person .who{font-size:.85rem;line-height:1.35}
+.quote-person .who strong{font-weight:600;display:block}
+.quote-person .who span{color:var(--ink-soft)}
+
+/* ---------- closing ---------- */
+.closing{
+  margin-top:clamp(7rem,11vw,10rem);
+  background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+  color:var(--paper-on-green);
+  text-align:center;
+  padding:clamp(6rem,10vw,9rem) 0;
+}
+.closing h2{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(2.4rem,4.5vw,3.75rem);line-height:1.1;text-wrap:balance;
+}
+.closing p{
+  margin:1.5rem auto 0;max-width:44ch;
+  color:color-mix(in srgb,var(--paper-on-green) 72%,transparent);
+}
+.closing .btn{margin-top:2.5rem}
+
+/* ---------- footer ---------- */
+footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
+.foot-grid{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap}
+.foot-brand{max-width:30ch}
+.foot-brand .wordmark{display:block;margin-bottom:1rem}
+.foot-brand p{font-size:.85rem;color:var(--ink-soft);line-height:1.55}
+.foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
+.foot-col .label{display:block;margin-bottom:1.1rem;font-size:.66rem}
+.foot-col ul{display:grid;gap:.6rem}
+.foot-col a{font-size:.88rem;color:var(--ink-soft);transition:color .18s}
+.foot-col a:hover{color:var(--ink)}
+.foot-base{
+  margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.75rem;
+  border-top:1px solid var(--hairline);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.8rem;color:var(--ink-soft);
+}
+
+/* ---------- reveal ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  .hero .reveal{transition-duration:.8s}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .section-grid{grid-template-columns:1fr;gap:2.25rem}
+  .product{grid-template-columns:1fr;gap:2.25rem}
+  .product:nth-of-type(even) .product-copy{order:0}
+  .problems{grid-template-columns:1fr;gap:2.75rem}
+  .quotes{grid-template-columns:1fr}
+  .shift-table{grid-template-columns:1fr;row-gap:3rem}
+  .logos{grid-template-columns:repeat(3,1fr)}
+  .nav-links{display:none}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .foot-cols{flex-direction:column;gap:2rem}
+  .logos{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="wordmark" href="#"><svg class="logo-svg" role="img" aria-label="Postilize" viewBox="0 0 338 56" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="postilize-logo"><path d="M257.656 54.1983C253.667 54.1983 250.158 53.4052 247.13 51.8191C244.102 50.1849 241.746 47.9018 240.064 44.9698C238.43 42.0379 237.613 38.6253 237.613 34.732C237.613 30.8387 238.43 27.4261 240.064 24.4942C241.698 21.5622 244.006 19.3032 246.986 17.717C250.014 16.0828 253.523 15.2657 257.512 15.2657C261.453 15.2657 264.914 16.1069 267.894 17.7891C270.922 19.4233 273.278 21.8266 274.96 24.9989C276.642 28.1231 277.483 31.8481 277.483 36.174V38.5532H250.23C250.663 40.62 251.528 42.1821 252.826 43.2395C254.123 44.2969 255.734 44.8256 257.656 44.8256C260.732 44.8256 262.919 43.7442 264.217 41.5813H276.618C275.945 44.2248 274.672 46.5079 272.797 48.4305C270.971 50.305 268.735 51.747 266.092 52.7563C263.496 53.7176 260.684 54.1983 257.656 54.1983ZM264.722 30.6946C264.289 28.7239 263.424 27.2339 262.126 26.2245C260.877 25.1671 259.29 24.6384 257.368 24.6384C255.493 24.6384 253.931 25.1431 252.681 26.1524C251.48 27.1137 250.663 28.6278 250.23 30.6946H264.722Z" fill="currentColor"/><path d="M237.247 43.6735V53.3346H203.721V45.2597L215.546 30.9844L220.016 25.7213C218.382 25.7694 215.954 25.7934 212.734 25.7934H203.721V16.1323H236.671V24.2072L224.846 38.4825L220.376 43.7456C222.011 43.6976 224.438 43.6735 227.658 43.6735H237.247Z" fill="currentColor"/><path d="M200.136 12.7438H187.591V2.3618H200.136V12.7438ZM200.496 53.3347H187.23V16.1324H200.496V53.3347Z" fill="currentColor"/><path d="M182.928 53.3334H169.662V2H182.928V53.3334Z" fill="currentColor"/><path d="M164.999 12.7438H152.454V2.3618H164.999V12.7438ZM165.36 53.3347H152.093V16.1324H165.36V53.3347Z" fill="currentColor"/><path d="M149.233 25.7942H142.24V40.3578C142.24 41.3672 142.384 42.1122 142.672 42.5929C143.009 43.0254 143.466 43.3138 144.042 43.458C144.619 43.6022 145.436 43.6743 146.494 43.6743H149.233V53.3354C147.215 53.5757 145.34 53.6959 143.61 53.6959C140.101 53.6959 137.265 53.2873 135.102 52.4702C132.987 51.6531 131.425 50.4034 130.416 48.7211C129.454 46.9908 128.974 44.7318 128.974 41.944V25.7942H123.71V16.1331H128.974V4.88594H142.24V16.1331H149.233V25.7942Z" fill="currentColor"/><path d="M105.311 54.4867C101.178 54.4867 97.7651 54.0541 95.0734 53.189C92.4298 52.3238 90.411 50.9539 89.0171 49.0794C87.6232 47.1568 86.8061 44.6334 86.5658 41.5092H99.3993C99.5916 43.1914 100.144 44.369 101.058 45.0419C102.019 45.7149 103.533 46.0513 105.6 46.0513C107.474 46.0513 108.82 45.811 109.637 45.3303C110.455 44.8497 110.863 44.1527 110.863 43.2395C110.863 42.6147 110.695 42.11 110.358 41.7255C110.022 41.2929 109.445 40.9324 108.628 40.644C107.859 40.3076 106.729 40.0432 105.239 39.8509L99.904 39.0579C91.3002 37.8082 86.9984 33.9389 86.9984 27.4502C86.9984 23.5089 88.5124 20.5048 91.5406 18.438C94.6168 16.3231 99.0629 15.2657 104.879 15.2657C116.415 15.2657 122.447 19.5675 122.976 28.1712H110.791C110.743 26.5369 110.19 25.3834 109.133 24.7105C108.123 24.0376 106.705 23.7011 104.879 23.7011C101.61 23.7011 99.9761 24.6384 99.9761 26.5129C99.9761 27.3781 100.337 28.027 101.058 28.4595C101.779 28.8921 102.956 29.2286 104.59 29.4689L110.935 30.3341C115.357 30.9589 118.65 32.2326 120.813 34.1552C122.976 36.0778 124.057 38.7454 124.057 42.158C124.057 44.8016 123.312 47.0366 121.822 48.8631C120.38 50.6896 118.241 52.0835 115.405 53.0448C112.617 54.0061 109.253 54.4867 105.311 54.4867Z" fill="currentColor"/><path d="M65.8183 54.1983C61.7327 54.1983 58.1758 53.4052 55.1476 51.8191C52.1195 50.1849 49.7883 47.9018 48.154 44.9698C46.5679 42.0379 45.7748 38.6253 45.7748 34.732C45.7748 30.8387 46.5679 27.4261 48.154 24.4942C49.7883 21.5622 52.1195 19.3032 55.1476 17.717C58.1758 16.0828 61.7327 15.2657 65.8183 15.2657C69.9039 15.2657 73.4607 16.0828 76.4889 17.717C79.517 19.3032 81.8242 21.5622 83.4104 24.4942C85.0446 27.4261 85.8617 30.8387 85.8617 34.732C85.8617 38.6253 85.0446 42.0379 83.4104 44.9698C81.8242 47.9018 79.517 50.1849 76.4889 51.8191C73.4607 53.4052 69.9039 54.1983 65.8183 54.1983ZM65.8183 43.8163C67.9812 43.8163 69.6395 43.0713 70.7931 41.5813C71.9467 40.0912 72.5235 37.8082 72.5235 34.732C72.5235 31.6558 71.9467 29.3728 70.7931 27.8828C69.6395 26.3927 67.9812 25.6477 65.8183 25.6477C63.6553 25.6477 61.997 26.3927 60.8434 27.8828C59.6899 29.3728 59.1131 31.6558 59.1131 34.732C59.1131 37.8082 59.6899 40.0912 60.8434 41.5813C61.997 43.0713 63.6553 43.8163 65.8183 43.8163Z" fill="currentColor"/><path d="M26.0811 2C30.1667 2 33.6755 2.74501 36.6075 4.23502C39.5876 5.67697 41.8467 7.74376 43.3848 10.4354C44.971 13.127 45.7641 16.2753 45.7641 19.8802C45.7641 23.485 44.971 26.6333 43.3848 29.3249C41.8467 32.0166 39.5876 34.1074 36.6075 35.5974C33.6755 37.0393 30.1667 37.7603 26.0811 37.7603H16.4198V53.3334H2V2H26.0811ZM24.9996 25.6479C26.9703 25.6479 28.5324 25.1673 29.686 24.206C30.8396 23.1966 31.4164 21.7547 31.4164 19.8802C31.4164 18.0056 30.8396 16.5877 29.686 15.6264C28.5324 14.617 26.9703 14.1124 24.9996 14.1124H16.4198V25.6479H24.9996Z" fill="currentColor"/><path opacity="0.9" d="M294.088 2V54.5806L305.95 38.1738H335.6V2H294.088Z" fill="currentColor"/></g></svg></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#products">Products</a>
+      <a href="#">Resources</a>
+      <a href="#">Company</a>
+    </nav>
+    <div class="nav-right">
+      <a class="signin" href="#">Sign in</a>
+      <a class="btn btn-primary" href="#demo">Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="label reveal">Business-of-law AI</span>
+      <h1 class="display reveal">AI is shrinking matters. Postilize finds you more.</h1>
+      <p class="lede reveal">As AI compresses the hours inside legal work, Postilize helps firms surface client needs earlier, grow the relationships they already have, and make partner follow-up actually happen.</p>
+      <div class="hero-ctas reveal">
+        <a class="btn btn-primary" href="#demo">Book a demo</a>
+        <a class="btn btn-ghost" href="#products">See the platform</a>
+      </div>
+      <div class="hero-media reveal">
+        <div class="ph"><span>Product image · Proactive Signals dashboard</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="trust">
+    <div class="wrap">
+      <div class="trust-row reveal">
+        <span class="label">Trusted by leading firms</span>
+        <div class="logos">
+          <div class="ph"><span>Holland &amp; Knight</span></div>
+          <div class="ph"><span>White &amp; Case</span></div>
+          <div class="ph"><span>Dentons</span></div>
+          <div class="ph"><span>Levenfeld Pearlstein</span></div>
+          <div class="ph"><span>Caravel</span></div>
+          <div class="ph"><span>Carahsoft</span></div>
+        </div>
+      </div>
+      <p class="litera reveal">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section">
+    <div class="wrap section-grid">
+      <span class="label reveal">The pressure on firms</span>
+      <div class="problems">
+        <div class="problem reveal">
+          <span class="num">No. 1</span>
+          <h3>Matters are shrinking</h3>
+          <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
+        </div>
+        <div class="problem reveal">
+          <span class="num">No. 2</span>
+          <h3>Rates are not enough</h3>
+          <p>Raising rates buys time. Clients are already questioning the tradeoff.</p>
+        </div>
+        <div class="problem reveal">
+          <span class="num">No. 3</span>
+          <h3>Origination is the answer</h3>
+          <p>Find client needs earlier, expand relationships, and move before competitors do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement -->
+  <section class="statement">
+    <div class="wrap">
+      <p class="reveal">Every platform is automating legal work. Postilize is built to <em>create</em> it.</p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="wrap">
+      <div class="products-head reveal">
+        <span class="label">The platform</span>
+        <h2 class="display">Three tools. One outcome: more matters.</h2>
+      </div>
+
+      <article class="product">
+        <div class="product-copy reveal">
+          <span class="label">Proactive Signals</span>
+          <h3>Find matters before they become RFPs.</h3>
+          <p class="desc">Reach clients while the work is still being shaped, not after it goes to bid.</p>
+          <ul>
+            <li>Detects leadership changes, financings, regulatory shifts, and M&amp;A across thousands of sources</li>
+            <li>Tells partners who to call today, and why</li>
+            <li>Tracks which signals convert to matters and fees</li>
+          </ul>
+          <a class="textlink" href="#">Explore Proactive Signals &rarr;</a>
+        </div>
+        <div class="product-media reveal">
+          <div class="ph"><span>Product image · Signals feed</span></div>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-copy reveal">
+          <span class="label">Proactive ERM</span>
+          <h3>Grow the clients you already have.</h3>
+          <p class="desc">The fastest path to more matters is inside existing relationships.</p>
+          <ul>
+            <li>Monitors relationship strength across the entire firm</li>
+            <li>Gives every partner a specific, timely reason to reach out</li>
+            <li>Flags at-risk relationships before it is too late</li>
+          </ul>
+          <a class="textlink" href="#">Explore Proactive ERM &rarr;</a>
+        </div>
+        <div class="product-media reveal">
+          <div class="ph"><span>Product image · Relationship coverage</span></div>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-copy reveal">
+          <span class="label">Proactive Cleanse</span>
+          <h3>Make your growth data trustworthy.</h3>
+          <p class="desc">No signal, list, or partner prompt is better than the data underneath it.</p>
+          <ul>
+            <li>Finds stale contacts and broken records automatically</li>
+            <li>Syncs with your existing CRM, no rip-and-replace</li>
+            <li>Cuts manual data entry to near zero</li>
+          </ul>
+          <p class="note">Many firms start here.</p>
+          <a class="textlink" href="#">Explore Proactive Cleanse &rarr;</a>
+        </div>
+        <div class="product-media reveal">
+          <div class="ph"><span>Product image · Data hygiene</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Shift -->
+  <section class="section">
+    <div class="wrap section-grid">
+      <span class="label reveal">The shift</span>
+      <div>
+        <p class="shift-intro reveal">Rate pressure is not a strategy. A repeatable origination motion is.</p>
+        <div class="shift-table reveal">
+          <div class="shift-col reactive">
+            <h3>The reactive firm</h3>
+            <ul>
+              <li>Raises rates to protect revenue</li>
+              <li>Hopes partners notice client needs</li>
+              <li>Leaves follow-up to memory and habit</li>
+              <li>Cleans CRM data after campaigns stall</li>
+            </ul>
+          </div>
+          <div class="shift-col proactive">
+            <h3>The proactive firm</h3>
+            <ul>
+              <li>Originates more matters to grow it</li>
+              <li>Surfaces needs before they become RFPs</li>
+              <li>Gives partners specific reasons to call</li>
+              <li>Keeps data ready for every growth motion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="section">
+    <div class="wrap section-grid">
+      <span class="label reveal">What practitioners say</span>
+      <div>
+        <p class="pullquote reveal">&ldquo;The firms with the most pricing power have the deepest client relationships.&rdquo;</p>
+        <div class="quotes">
+          <figure class="quote reveal">
+            <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
+            <figcaption class="quote-person">
+              <div class="ph"><span>Photo</span></div>
+              <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
+            </figcaption>
+          </figure>
+          <figure class="quote reveal">
+            <blockquote>&ldquo;If I&rsquo;m a rainmaker, this is the information I really want to know.&rdquo;</blockquote>
+            <figcaption class="quote-person">
+              <div class="ph"><span>Photo</span></div>
+              <div class="who"><strong>Kristen Baylis</strong><span>Legal</span></div>
+            </figcaption>
+          </figure>
+          <figure class="quote reveal">
+            <blockquote>&ldquo;It would save rainmakers a ton of time and give them a lot of their life back.&rdquo;</blockquote>
+            <figcaption class="quote-person">
+              <div class="ph"><span>Photo</span></div>
+              <div class="who"><strong>Jessica Rubin</strong><span>Legal</span></div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="closing" id="demo">
+    <div class="wrap">
+      <h2 class="reveal">See what your firm is missing.</h2>
+      <p class="reveal">A 30-minute walkthrough of Signals, ERM, and Cleanse, with your firm&rsquo;s market in mind.</p>
+      <a class="btn btn-paper reveal" href="#">Book a demo</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="wordmark"><svg class="logo-svg" role="img" aria-label="Postilize" viewBox="0 0 338 56" fill="none" xmlns="http://www.w3.org/2000/svg"><use href="#postilize-logo"/></svg></span>
+        <p>Signals, ERM, and Cleanse: the three tools law firms need to win new business and keep the relationships that drive it.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <span class="label">Products</span>
+          <ul>
+            <li><a href="#">Proactive Signals</a></li>
+            <li><a href="#">Proactive ERM</a></li>
+            <li><a href="#">Proactive Cleanse</a></li>
+            <li><a href="#">Proactive Chat</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <span class="label">Company</span>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Trust &amp; Security</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <span class="label">Legal</span>
+          <ul>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; 2026 Postilize. All rights reserved.</span>
+      <a href="https://www.linkedin.com/company/postilize">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }
+}, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  if (el.closest('.hero')) el.style.transitionDelay = `${Math.min(i * 90, 450)}ms`;
+  io.observe(el);
+});
+</script>
+
+</body>
+</html>
