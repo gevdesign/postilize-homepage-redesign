@@ -22,8 +22,8 @@
   --paper-on-green:#FAFAF9;
   --serif:"Source Serif 4",Georgia,serif;
   --sans:"Geist",-apple-system,"Helvetica Neue",sans-serif;
-  --w:1280px;
-  --gutter:clamp(1.5rem,4vw,4rem);
+  --w:1360px;
+  --gutter:clamp(1.25rem,3vw,3rem);
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -139,14 +139,17 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
   background:linear-gradient(200deg,rgba(13,16,22,.18) 0%,rgba(13,16,22,.05) 38%,rgba(13,16,22,.66) 88%),
              linear-gradient(0deg,rgba(0,61,38,.22),rgba(0,61,38,.10));
 }
-.hero-content{position:relative;z-index:2;width:100%;padding-top:3rem;padding-bottom:clamp(7rem,12vh,9rem)}
-.hero .label{display:block;margin-bottom:1.25rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
-.hero h1{
-  font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.02;
-  font-size:clamp(3rem,7vw,6rem);
-  max-width:14ch;text-wrap:balance;
+.hero-content{
+  position:relative;z-index:2;width:100%;
+  padding:3rem var(--gutter) clamp(7rem,12vh,9rem);
 }
-.hero .lede{margin-top:1.5rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:46ch}
+.hero .label{display:block;margin-bottom:1.5rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
+.hero h1{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.0;
+  font-size:clamp(3.25rem,7.5vw,7rem);
+  max-width:24ch;text-wrap:balance;
+}
+.hero .lede{margin-top:1.75rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:50ch}
 .hero-ctas{display:flex;gap:.9rem;margin-top:2.25rem;flex-wrap:wrap}
 
 /* ---------- hero logo marquee (Harvey treatment) ---------- */
@@ -311,12 +314,15 @@ header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
   content:"";position:absolute;inset:0;
   background:linear-gradient(190deg,rgba(13,16,22,.1) 0%,rgba(13,16,22,.72) 90%);
 }
-.quote-band-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(2.5rem,5vw,4.5rem)}
+.quote-band-content{
+  position:relative;z-index:2;width:100%;
+  padding:0 var(--gutter) clamp(2.5rem,5vw,4.5rem);
+}
 .quote-band .label{display:block;margin-bottom:1.75rem;color:color-mix(in srgb,var(--paper) 70%,transparent)}
 .quote-band blockquote{
   font-family:var(--serif);font-weight:300;font-style:italic;letter-spacing:-.02em;
-  font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.18;
-  max-width:24ch;text-wrap:balance;
+  font-size:clamp(2rem,4.5vw,3.9rem);line-height:1.16;
+  max-width:26ch;text-wrap:balance;
 }
 .quote-band figcaption{margin-top:1.75rem;font-size:.85rem;color:color-mix(in srgb,var(--paper) 75%,transparent)}
 .quote-band figcaption strong{color:var(--paper);font-weight:600;display:block}
@@ -432,7 +438,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     <div class="hero-bg">
       <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
     </div>
-    <div class="wrap hero-content">
+    <div class="hero-content">
       <span class="label reveal">Business-of-law AI</span>
       <h1 class="reveal">AI is shrinking matters. Postilize finds you more.</h1>
       <p class="lede reveal">As AI compresses the hours inside legal work, Postilize helps firms surface client needs earlier, grow the relationships they already have, and make partner follow-up actually happen.</p>
@@ -612,7 +618,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     <div class="quote-band-bg">
       <img src="assets/photos/boardroom.jpg" alt="A firm boardroom in session">
     </div>
-    <figure class="wrap quote-band-content">
+    <figure class="quote-band-content">
       <span class="label reveal">What practitioners say</span>
       <blockquote class="reveal">&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
       <figcaption class="reveal"><strong>Jeffrey Merk</strong>Legal</figcaption>
