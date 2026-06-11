@@ -22,8 +22,8 @@
   --paper-on-green:#FAFAF9;
   --serif:"Source Serif 4",Georgia,serif;
   --sans:"Geist",-apple-system,"Helvetica Neue",sans-serif;
-  --w:1120px;
-  --gutter:clamp(1.5rem,5vw,3rem);
+  --w:1280px;
+  --gutter:clamp(1.5rem,4vw,4rem);
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -40,24 +40,23 @@ body{
 .wrap{max-width:var(--w);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
+img{display:block}
 
 /* ---------- type ---------- */
 .label{
   font-size:.68rem;font-weight:600;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-soft);
 }
-.display{
-  font-family:var(--serif);font-weight:300;
-  letter-spacing:-.03em;line-height:1.04;
-  font-size:clamp(2.9rem,5.5vw,4.75rem);
-  text-wrap:balance;
-}
-h2.display{font-size:clamp(2.1rem,3.8vw,3.1rem);line-height:1.1}
-h3{
-  font-family:var(--serif);font-weight:400;letter-spacing:-.012em;
-  font-size:clamp(1.7rem,2.6vw,2.15rem);line-height:1.15;
-}
 .lede{font-size:1.05rem;line-height:1.65;color:var(--ink-soft);max-width:54ch}
+
+/* ---------- grain ---------- */
+.grain{position:relative;isolation:isolate}
+.grain::after{
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size:160px 160px;
+  opacity:.10;mix-blend-mode:overlay;
+}
 
 /* ---------- buttons ---------- */
 .btn{
@@ -69,17 +68,19 @@ h3{
 .btn-primary:hover{background:var(--green-deep)}
 .btn-ghost{border-color:var(--hairline);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--ink-soft)}
-.btn-paper{background:var(--paper);color:var(--green)}
-.btn-paper:hover{background:var(--paper-on-green)}
+.btn-paper{background:var(--paper);color:var(--ink)}
+.btn-paper:hover{background:var(--field)}
+.btn-ghost-paper{border-color:color-mix(in srgb,var(--paper) 45%,transparent);color:var(--paper)}
+.btn-ghost-paper:hover{border-color:var(--paper)}
 .textlink{
   font-size:.85rem;font-weight:600;color:var(--green);
   border-bottom:1px solid transparent;transition:border-color .18s;
 }
 .textlink:hover{border-bottom-color:var(--green)}
 
-/* ---------- framed media (placeholder-fallback) ---------- */
+/* ---------- framed product UI placeholder ---------- */
 .frame{
-  position:relative;border-radius:12px;overflow:hidden;
+  position:relative;border-radius:10px;overflow:hidden;
   background:var(--paper);border:1px solid var(--hairline);
   box-shadow:0 1px 2px rgba(13,16,22,.04),0 28px 56px -36px rgba(13,16,22,.25);
   will-change:transform;
@@ -89,234 +90,256 @@ h3{
   background:#F2F2F0;border-bottom:1px solid var(--hairline);
 }
 .frame-bar i{width:8px;height:8px;border-radius:50%;background:var(--hairline)}
-.frame-media{position:relative;aspect-ratio:var(--ar,16/9);background:var(--field)}
-.frame-media img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform .7s var(--ease);
-}
-.frame:hover .frame-media img{transform:scale(1.02)}
-.photo img{transition:transform .7s var(--ease)}
-.photo:hover img{transform:scale(1.02)}
+.frame-media{position:relative;aspect-ratio:var(--ar,4/3);background:var(--field)}
+.frame-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .frame-media.noimg::after{
   content:attr(data-ph);position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;text-align:center;padding:0 1rem;
-  font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  font-size:.68rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
   color:var(--ink-soft);opacity:.75;
 }
-.photo{
-  border-radius:12px;overflow:hidden;
-  box-shadow:0 1px 2px rgba(13,16,22,.04),0 28px 56px -36px rgba(13,16,22,.25);
-  will-change:transform;
-}
-.photo img{display:block;width:100%;aspect-ratio:var(--ar,16/9);object-fit:cover}
 
-/* ---------- nav ---------- */
+/* ---------- header (transparent over hero -> solid) ---------- */
 header{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  color:var(--paper);
+  transition:background-color .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+  border-bottom:1px solid transparent;
+}
+header.solid{
+  background:color-mix(in srgb,var(--paper) 94%,transparent);
   backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--hairline);
+  color:var(--ink);
+  border-bottom-color:var(--hairline);
 }
-.nav{display:flex;align-items:center;gap:2.5rem;height:72px}
-.wordmark{display:flex;align-items:center;color:var(--ink)}
-.logo-svg{height:23px;width:auto;display:block}
-.nav-links{display:flex;gap:2rem;font-size:.875rem;font-weight:500;color:var(--ink-soft)}
-.nav-links a{transition:color .18s}
-.nav-links a:hover{color:var(--ink)}
+.nav{display:flex;align-items:center;gap:2.5rem;height:76px}
+.wordmark{display:flex;align-items:center;color:currentColor}
+.logo-svg{height:22px;width:auto;display:block}
+.nav-links{display:flex;gap:2rem;font-size:.875rem;font-weight:500;opacity:.85}
+.nav-links a:hover{opacity:1}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:1.75rem}
-.nav-right .signin{font-size:.875rem;font-weight:500;color:var(--ink-soft);transition:color .18s}
-.nav-right .signin:hover{color:var(--ink)}
-.nav .btn{padding:.6rem 1.2rem}
+.nav-right .signin{font-size:.875rem;font-weight:500;opacity:.85}
+.nav .btn{padding:.55rem 1.2rem}
+header:not(.solid) .nav .btn{background:var(--paper);color:var(--ink)}
+header.solid .nav .btn{background:var(--green);color:var(--paper-on-green)}
 
-/* ---------- hero ---------- */
-.hero{padding-top:clamp(5rem,9vw,8rem)}
-.hero .label{display:block;margin-bottom:1.5rem;color:var(--green)}
-.hero h1{max-width:15ch}
-.hero .lede{margin-top:1.75rem}
-.hero-ctas{display:flex;gap:.9rem;margin-top:2.5rem;flex-wrap:wrap}
-.hero-stage{
-  --overlap:clamp(2.5rem,5vw,4.5rem);
-  margin-top:clamp(5.5rem,9vw,8rem);
-  background:var(--field);
-  padding-bottom:1.25rem;
+/* ---------- hero: full-bleed photo, text overlaid ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--paper);
 }
-.hero-stage .wrap{transform:translateY(calc(-1 * var(--overlap)))}
-.hero-stage .frame,.hero-stage .photo{margin-bottom:calc(-1 * var(--overlap))}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.82) contrast(1.04);
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(200deg,rgba(13,16,22,.18) 0%,rgba(13,16,22,.05) 38%,rgba(13,16,22,.66) 88%),
+             linear-gradient(0deg,rgba(0,61,38,.22),rgba(0,61,38,.10));
+}
+.hero-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(2.5rem,5vw,4.5rem)}
+.hero .label{display:block;margin-bottom:1.25rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
+.hero h1{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.02;
+  font-size:clamp(3rem,7vw,6rem);
+  max-width:14ch;text-wrap:balance;
+}
+.hero .lede{margin-top:1.5rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:46ch}
+.hero-ctas{display:flex;gap:.9rem;margin-top:2.25rem;flex-wrap:wrap}
 
-/* ---------- trust ---------- */
-.trust{padding-top:clamp(4rem,7vw,6rem)}
+/* ---------- trust: ink band ---------- */
+.trust{background:var(--ink);color:var(--paper);padding:2.5rem 0}
 .trust-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
-.trust .label{flex-shrink:0}
+.trust .label{color:color-mix(in srgb,var(--paper) 55%,transparent);flex-shrink:0}
 .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;flex:1}
-.logo{
-  position:relative;height:48px;
-  display:flex;align-items:center;justify-content:center;
-}
-.logo img{max-height:32px;max-width:88%;width:auto;display:block}
-.logo.noimg{background:var(--field);border:1px solid var(--hairline);border-radius:4px}
+.logo{position:relative;height:44px;display:flex;align-items:center;justify-content:center}
+.logo img{max-height:30px;max-width:88%;width:auto;filter:invert(1) brightness(1.4)}
+.logo.noimg{border:1px solid color-mix(in srgb,var(--paper) 16%,transparent);border-radius:4px}
 .logo.noimg::after{
   content:attr(data-ph);
-  font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-soft);opacity:.75;text-align:center;padding:0 .5rem;
+  font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--paper) 50%,transparent);text-align:center;padding:0 .5rem;
 }
-.litera{margin-top:1.75rem;font-size:.85rem;color:var(--ink-soft)}
-.litera strong{color:var(--ink);font-weight:600}
+.litera{margin-top:1.5rem;font-size:.85rem;color:color-mix(in srgb,var(--paper) 55%,transparent)}
+.litera strong{color:var(--paper);font-weight:600}
 
-/* ---------- section scaffold ---------- */
-.section{padding:clamp(7rem,11vw,11rem) 0 0}
-.section-grid{
-  display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);
-  gap:clamp(2rem,5vw,5rem);align-items:start;
+/* ---------- opportunity: sticky argument + giant stat rows ---------- */
+.opportunity .wrap{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(2.5rem,6vw,6rem);
+  padding-top:clamp(6rem,10vw,9rem);padding-bottom:clamp(6rem,10vw,9rem);
 }
-.section-grid > .label{padding-top:.5rem}
-
-/* ---------- stats (Legora-style ruled rows) ---------- */
-.stat{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);
-  gap:1.5rem;align-items:start;
-  border-top:1px solid var(--hairline);
-  padding:1.75rem 0 2.5rem;
+.opp-left{position:sticky;top:120px;align-self:start}
+.opp-left .label{display:block;margin-bottom:2rem}
+.opp-left h2{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.12;
+  font-size:clamp(1.7rem,2.6vw,2.3rem);max-width:18ch;margin-bottom:1.5rem;
 }
-.stat:last-child{border-bottom:1px solid var(--hairline);padding-bottom:1.75rem}
-.stat-num{
+.opp-left p{font-size:.95rem;color:var(--ink-soft);max-width:44ch;margin-bottom:1rem}
+.opp-left .btn{margin-top:1rem}
+.stat{border-top:1px solid var(--hairline);padding:2.25rem 0 2.75rem}
+.stat:last-child{border-bottom:1px solid var(--hairline)}
+.stat-num,.stat-sub{
   display:block;font-family:var(--serif);font-weight:300;letter-spacing:-.03em;
-  font-size:clamp(3.25rem,7.5vw,6.5rem);line-height:.95;white-space:nowrap;
+  font-size:clamp(2.8rem,5.5vw,4.9rem);line-height:1.02;
 }
-.stat p{font-size:.8rem;color:var(--ink-soft);line-height:1.5;padding-top:.35rem}
+.stat-num{color:var(--ink)}
+.stat-sub{color:var(--green)}
+.stat p{margin-top:1rem;font-size:.8rem;color:var(--ink-soft);max-width:40ch}
 
-/* ---------- problem ---------- */
-.problems{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(2rem,4vw,3.5rem)}
-.problem .num{
-  font-family:var(--serif);font-size:.95rem;font-style:italic;
-  color:var(--green);display:block;margin-bottom:1.1rem;
+/* ---------- statement: emerald drench ---------- */
+.statement{
+  background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
+  color:var(--paper-on-green);
+  padding:clamp(8rem,14vw,13rem) 0;
 }
-.problem h3{font-size:1.4rem;margin-bottom:.7rem}
-.problem p{font-size:.875rem;color:var(--ink-soft);line-height:1.6}
-
-/* ---------- statement ---------- */
-.statement{text-align:center;padding:clamp(8rem,14vw,13rem) 0}
 .statement p{
-  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
-  font-size:clamp(1.9rem,4vw,3.25rem);line-height:1.22;
-  max-width:24ch;margin:0 auto;text-wrap:balance;
+  font-family:var(--serif);font-weight:300;letter-spacing:-.025em;
+  font-size:clamp(2.2rem,4.6vw,3.9rem);line-height:1.16;
+  max-width:22ch;text-wrap:balance;
 }
-.statement em{font-style:italic;color:var(--green)}
+.statement em{font-style:italic;color:var(--green-soft)}
 
 /* ---------- products ---------- */
-.products{border-top:1px solid var(--hairline);padding-top:clamp(5rem,8vw,7.5rem)}
-.products-head{max-width:46ch;margin-bottom:clamp(4rem,7vw,6rem)}
-.products-head .label{display:block;margin-bottom:1.25rem}
-.product{
-  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
-  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+.product-head{padding:clamp(6rem,10vw,9rem) 0 clamp(3.5rem,6vw,5rem)}
+.product-head .label{display:block;margin-bottom:1.25rem}
+.product-head h2{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.05;
+  font-size:clamp(2.4rem,4.5vw,3.9rem);max-width:18ch;
 }
-.product.flip .product-copy{order:2}
 .product .label{display:block;margin-bottom:1rem;color:var(--green)}
-.product h3{margin-bottom:1rem}
+.product h3{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.15;
+  font-size:clamp(1.7rem,2.6vw,2.15rem);margin-bottom:1rem;
+}
 .product .desc{color:var(--ink-soft);font-size:.95rem;max-width:48ch}
 .product ul{margin-top:1.6rem;display:grid;gap:.75rem}
 .product li{position:relative;padding-left:1.6rem;font-size:.875rem;line-height:1.55}
-.product li::before{
-  content:"";position:absolute;left:0;top:.72em;
-  width:.85rem;height:1px;background:var(--green);
-}
-.product .note{
-  margin-top:1.5rem;font-family:var(--serif);font-style:italic;
-  font-size:1rem;color:var(--green);
-}
+.product li::before{content:"";position:absolute;left:0;top:.72em;width:.85rem;height:1px;background:var(--green)}
+.product .note{margin-top:1.5rem;font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--green)}
 .product .textlink{display:inline-block;margin-top:1.75rem}
-.products .product{padding-bottom:clamp(4rem,7vw,6rem)}
-.products-tail .product{padding-top:clamp(4rem,7vw,6rem)}
-
-/* dark mid-page section (ERM) */
-.product-dark{
-  background:var(--ink);color:var(--paper);
-  padding:clamp(5rem,8vw,7.5rem) 0;
+.product-num{
+  font-family:var(--serif);font-style:italic;font-weight:300;
+  font-size:clamp(3.5rem,6vw,5.5rem);line-height:1;color:var(--hairline);
+  display:block;margin-bottom:1.5rem;
 }
-.product-dark .label{color:var(--green-soft)}
-.product-dark .desc{color:color-mix(in srgb,var(--paper) 64%,transparent)}
-.product-dark .product li::before{background:var(--green-soft)}
-.product-dark .textlink{color:var(--green-soft)}
-.product-dark .textlink:hover{border-bottom-color:var(--green-soft)}
-.product-dark .frame{
-  border-color:color-mix(in srgb,var(--paper) 16%,transparent);
-  box-shadow:0 28px 56px -36px rgba(0,0,0,.6);
-}
-.product-dark .frame-bar{background:#161B22;border-bottom-color:color-mix(in srgb,var(--paper) 12%,transparent)}
-.product-dark .frame-bar i{background:color-mix(in srgb,var(--paper) 18%,transparent)}
-.product-dark .frame-media{background:#161B22}
-.product-dark .frame-media.noimg::after{color:color-mix(in srgb,var(--paper) 55%,transparent)}
 
-/* ---------- shift table ---------- */
+/* signals: field band, copy + frame */
+.product-signals{background:var(--field);padding:clamp(5rem,8vw,7.5rem) 0}
+.product-signals .wrap{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+}
+.product-signals .product-num{color:#D8D8D5}
+
+/* erm: ink band, photo flush to left viewport edge */
+.product-erm{background:var(--ink);color:var(--paper)}
+.erm-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:stretch;min-height:72svh;
+}
+.erm-media{position:relative;overflow:hidden}
+.erm-media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:saturate(.85) contrast(1.02);
+}
+.erm-copy{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(4rem,7vw,6.5rem) var(--gutter) clamp(4rem,7vw,6.5rem) clamp(2.5rem,5vw,5rem);
+  max-width:640px;
+}
+.product-erm .label{color:var(--green-soft)}
+.product-erm .desc{color:color-mix(in srgb,var(--paper) 62%,transparent)}
+.product-erm li::before{background:var(--green-soft)}
+.product-erm .textlink{color:var(--green-soft)}
+.product-erm .textlink:hover{border-bottom-color:var(--green-soft)}
+.product-erm .product-num{color:color-mix(in srgb,var(--paper) 18%,transparent)}
+
+/* cleanse: paper, frame + copy */
+.product-cleanse{padding:clamp(5rem,8vw,7.5rem) 0}
+.product-cleanse .wrap{
+  display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+}
+
+/* ---------- shift ---------- */
+.shift{padding:clamp(6rem,10vw,9rem) 0 0}
+.shift-head{max-width:54ch;margin-bottom:3rem}
+.shift-head h2{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.12;
+  font-size:clamp(1.7rem,2.6vw,2.3rem);
+}
 .shift-table{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4.5rem)}
-.shift-col h3{font-size:1rem;font-family:var(--sans);font-weight:600;letter-spacing:0;padding-bottom:1.1rem;border-bottom:1px solid var(--hairline)}
+.shift-col h3{font-size:1rem;font-weight:600;padding-bottom:1.1rem;border-bottom:1px solid var(--hairline)}
 .shift-col.reactive h3{color:var(--ink-soft)}
 .shift-col.proactive h3{color:var(--green)}
 .shift-col li{padding:1.1rem 0;border-bottom:1px solid var(--hairline);font-size:.9rem;line-height:1.55}
 .shift-col.reactive li{color:var(--ink-soft)}
-.shift-intro{max-width:52ch;color:var(--ink-soft);margin-bottom:2.5rem}
 
-/* ---------- proof ---------- */
-.pullquote{
-  font-family:var(--serif);font-weight:300;font-style:italic;letter-spacing:-.015em;
-  font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.25;
-  max-width:26ch;text-wrap:balance;
+/* ---------- quote band: full-bleed photo ---------- */
+.quote-band{
+  position:relative;min-height:78svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  color:var(--paper);
+  margin-top:clamp(6rem,10vw,9rem);
 }
+.quote-band-bg{position:absolute;inset:0;overflow:hidden}
+.quote-band-bg img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.8) contrast(1.03);
+}
+.quote-band-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(190deg,rgba(13,16,22,.1) 0%,rgba(13,16,22,.72) 90%);
+}
+.quote-band-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(2.5rem,5vw,4.5rem)}
+.quote-band .label{display:block;margin-bottom:1.75rem;color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.quote-band blockquote{
+  font-family:var(--serif);font-weight:300;font-style:italic;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.18;
+  max-width:24ch;text-wrap:balance;
+}
+.quote-band figcaption{margin-top:1.75rem;font-size:.85rem;color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.quote-band figcaption strong{color:var(--paper);font-weight:600;display:block}
+
+/* ---------- voices ---------- */
+.voices{padding:clamp(4.5rem,7vw,6.5rem) 0 0}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,3.5rem)}
+.quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
+.quote blockquote{font-family:var(--serif);font-size:1.08rem;line-height:1.45}
+.quote-person{display:flex;align-items:center;gap:.95rem;margin-top:auto}
 .avatar{
-  position:relative;border-radius:50%;overflow:hidden;flex-shrink:0;
+  position:relative;width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;
   background:var(--field);border:1px solid var(--hairline);
 }
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.avatar.noimg::after{
-  content:"";position:absolute;inset:0;
-}
-.quote-feature{
-  margin-top:clamp(3.5rem,6vw,5rem);
-  padding-top:clamp(2.5rem,4vw,3.5rem);
-  border-top:1px solid var(--hairline);
-  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
-  gap:clamp(2rem,5vw,4.5rem);align-items:center;
-}
-.quote-feature-copy{display:flex;flex-direction:column}
-.quote-feature blockquote{
-  font-family:var(--serif);font-weight:300;letter-spacing:-.015em;
-  font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.3;max-width:30ch;
-}
-.quote-feature .quote-person{margin-top:2rem}
-.quote-person{display:flex;align-items:center;gap:.95rem}
-.quote-person .avatar{width:52px;height:52px}
-.quote-feature .quote-person .avatar{width:64px;height:64px}
+.avatar img{width:100%;height:100%;object-fit:cover}
 .quote-person .who{font-size:.82rem;line-height:1.35}
 .quote-person .who strong{font-weight:600;display:block}
 .quote-person .who span{color:var(--ink-soft)}
-.quotes{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:clamp(2rem,4vw,3.5rem);margin-top:clamp(3rem,5vw,4rem);
-}
-.quote{display:flex;flex-direction:column;gap:1.4rem;border-top:1px solid var(--hairline);padding-top:1.75rem}
-.quote blockquote{font-family:var(--serif);font-size:1.08rem;line-height:1.45;font-weight:400}
-.quote .quote-person{margin-top:auto}
 
 /* ---------- closing ---------- */
 .closing{
   position:relative;overflow:hidden;
-  margin-top:clamp(7rem,11vw,10rem);
+  margin-top:clamp(6rem,10vw,9rem);
   background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
   color:var(--paper-on-green);
   text-align:center;
   padding:clamp(6rem,10vw,9rem) 0 clamp(9rem,14vw,13rem);
 }
-.closing .wrap{position:relative;z-index:1}
+.closing .wrap{position:relative;z-index:2}
 .closing h2{
-  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
-  font-size:clamp(2.4rem,4.5vw,3.75rem);line-height:1.1;text-wrap:balance;
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.1;
+  font-size:clamp(2.4rem,4.5vw,3.75rem);text-wrap:balance;
 }
 .closing p{margin:1.5rem auto 0;max-width:44ch;color:color-mix(in srgb,var(--paper-on-green) 72%,transparent)}
 .closing .btn{margin-top:2.5rem}
+.closing .btn-paper{color:var(--green)}
 .watermark{
-  position:absolute;left:50%;bottom:0;z-index:0;
-  width:min(92%,1040px);height:auto;
-  transform:translate(-50%,38%);
+  position:absolute;left:50%;bottom:0;z-index:1;
+  width:min(96%,1180px);height:auto;
+  transform:translate(-50%,40%);
   color:var(--paper-on-green);opacity:.07;pointer-events:none;
 }
 
@@ -324,10 +347,10 @@ header{
 footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 .foot-grid{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap}
 .foot-brand{max-width:30ch}
-.foot-brand .wordmark{display:block;margin-bottom:1rem}
-.foot-brand p{font-size:.85rem;color:var(--ink-soft);line-height:1.55}
+.foot-brand .wordmark{display:block;margin-bottom:1rem;color:var(--ink)}
+.foot-brand p{font-size:.8rem;color:var(--ink-soft);line-height:1.55}
 .foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
-.foot-col .label{display:block;margin-bottom:1.1rem;font-size:.66rem}
+.foot-col .label{display:block;margin-bottom:1.1rem;font-size:.62rem}
 .foot-col ul{display:grid;gap:.6rem}
 .foot-col a{font-size:.82rem;color:var(--ink-soft);transition:color .18s}
 .foot-col a:hover{color:var(--ink)}
@@ -335,36 +358,35 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.75rem;
   border-top:1px solid var(--hairline);
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  font-size:.8rem;color:var(--ink-soft);
+  font-size:.78rem;color:var(--ink-soft);
 }
 
 /* ---------- reveal ---------- */
 @media (prefers-reduced-motion:no-preference){
-  .js .reveal{opacity:0;transform:translateY(14px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .js .reveal.in{opacity:1;transform:none}
-  .hero .reveal,.hero-stage .reveal{transition-duration:.8s}
+  .hero .reveal{transition-duration:.9s}
 }
 
 /* ---------- responsive ---------- */
 @media (max-width:920px){
-  .section-grid{grid-template-columns:1fr;gap:2.25rem}
-  .product{grid-template-columns:1fr;gap:2.25rem}
-  .product.flip .product-copy{order:0}
-  .problems{grid-template-columns:1fr;gap:2.75rem}
-  .stat{grid-template-columns:1fr;gap:.6rem;padding:1.5rem 0 2rem}
-  .quotes{grid-template-columns:1fr}
-  .quote-feature{grid-template-columns:1fr;gap:2.25rem}
+  .opportunity .wrap{grid-template-columns:1fr;gap:3rem}
+  .opp-left{position:static}
+  .product-signals .wrap,.product-cleanse .wrap{grid-template-columns:1fr;gap:2.5rem}
+  .erm-grid{grid-template-columns:1fr;min-height:0}
+  .erm-media{aspect-ratio:16/10;position:relative}
+  .erm-copy{max-width:none;padding:clamp(3rem,7vw,5rem) var(--gutter)}
   .shift-table{grid-template-columns:1fr;row-gap:3rem}
+  .quotes{grid-template-columns:1fr}
   .logos{grid-template-columns:repeat(3,1fr)}
   .nav-links{display:none}
 }
 @media (max-width:560px){
-  body{font-size:15px}
   .nav{gap:1rem}
   .nav-right{gap:1rem}
   .nav-right .signin{white-space:nowrap}
-  .nav .btn{padding:.55rem .95rem}
-  .logo-svg{height:19px}
+  .nav .btn{padding:.5rem .95rem}
+  .logo-svg{height:18px}
   .foot-cols{flex-direction:column;gap:2rem}
   .logos{grid-template-columns:repeat(2,1fr)}
 }
@@ -382,34 +404,30 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </nav>
     <div class="nav-right">
       <a class="signin" href="#">Sign in</a>
-      <a class="btn btn-primary" href="#demo">Book a demo</a>
+      <a class="btn" href="#demo">Book a demo</a>
     </div>
   </div>
 </header>
 
 <main>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="wrap">
+  <!-- Hero: full-bleed -->
+  <section class="hero grain">
+    <div class="hero-bg">
+      <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
+    </div>
+    <div class="wrap hero-content">
       <span class="label reveal">Business-of-law AI</span>
-      <h1 class="display reveal">AI is shrinking matters. Postilize finds you more.</h1>
+      <h1 class="reveal">AI is shrinking matters. Postilize finds you more.</h1>
       <p class="lede reveal">As AI compresses the hours inside legal work, Postilize helps firms surface client needs earlier, grow the relationships they already have, and make partner follow-up actually happen.</p>
       <div class="hero-ctas reveal">
-        <a class="btn btn-primary" href="#demo">Book a demo</a>
-        <a class="btn btn-ghost" href="#products">See the platform</a>
+        <a class="btn btn-paper" href="#demo">Book a demo</a>
+        <a class="btn btn-ghost-paper" href="#products">See the platform</a>
       </div>
     </div>
   </section>
-  <div class="hero-stage">
-    <div class="wrap">
-      <figure class="photo reveal" data-parallax>
-        <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
-      </figure>
-    </div>
-  </div>
 
-  <!-- Trust -->
+  <!-- Trust: ink band -->
   <section class="trust">
     <div class="wrap">
       <div class="trust-row reveal">
@@ -427,68 +445,56 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
   </section>
 
-  <!-- Stats -->
-  <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
-  <section class="section">
-    <div class="wrap section-grid">
-      <span class="label reveal">The numbers</span>
-      <div class="stats-rows">
+  <!-- Opportunity: sticky argument + giant stats -->
+  <section class="opportunity">
+    <div class="wrap">
+      <div class="opp-left reveal">
+        <span class="label">The pressure on firms</span>
+        <h2>Rates buy time. Origination builds firms.</h2>
+        <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
+        <p>Raising rates covers the gap for a while, but clients are already questioning the tradeoff.</p>
+        <p>The durable move is to find client needs earlier, expand existing relationships, and act before competitors do.</p>
+        <a class="btn btn-primary" href="#products">See how it works</a>
+      </div>
+      <div class="opp-right">
+        <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
         <div class="stat reveal">
           <span class="stat-num">4.2 weeks</span>
-          <p>Average head start: signal detected before the RFP exists</p>
+          <span class="stat-sub">before the RFP</span>
+          <p>Average head start when a client need is detected as a signal, not a bid invitation</p>
         </div>
         <div class="stat reveal">
           <span class="stat-num">1,000+</span>
-          <p>Client signals surfaced every week</p>
+          <span class="stat-sub">signals a week</span>
+          <p>Leadership changes, financings, regulatory shifts, and M&amp;A surfaced across your client base</p>
         </div>
         <div class="stat reveal">
           <span class="stat-num">AmLaw 200</span>
-          <p>Firms growing with the Proactive suite</p>
+          <span class="stat-sub">firms growing</span>
+          <p>The Proactive suite runs inside the firms that take origination seriously</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Problem -->
-  <section class="section">
-    <div class="wrap section-grid">
-      <span class="label reveal">The pressure on firms</span>
-      <div class="problems">
-        <div class="problem reveal">
-          <span class="num">No. 1</span>
-          <h3>Matters are shrinking</h3>
-          <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
-        </div>
-        <div class="problem reveal">
-          <span class="num">No. 2</span>
-          <h3>Rates are not enough</h3>
-          <p>Raising rates buys time. Clients are already questioning the tradeoff.</p>
-        </div>
-        <div class="problem reveal">
-          <span class="num">No. 3</span>
-          <h3>Origination is the answer</h3>
-          <p>Find client needs earlier, expand relationships, and move before competitors do.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Statement -->
+  <!-- Statement: emerald drench -->
   <section class="statement">
     <div class="wrap">
       <p class="reveal">Every platform is automating legal work. Postilize is built to <em>create</em> it.</p>
     </div>
   </section>
 
-  <!-- Products: Signals -->
-  <section class="products" id="products">
-    <div class="wrap">
-      <div class="products-head reveal">
-        <span class="label">The platform</span>
-        <h2 class="display">Three tools. One outcome: more matters.</h2>
-      </div>
-      <article class="product">
-        <div class="product-copy reveal">
+  <!-- Products -->
+  <div id="products">
+    <div class="wrap product-head reveal">
+      <span class="label">The platform</span>
+      <h2>Three tools. One outcome: more matters.</h2>
+    </div>
+
+    <section class="product product-signals">
+      <div class="wrap">
+        <div class="reveal">
+          <span class="product-num">No.&thinsp;1</span>
           <span class="label">Proactive Signals</span>
           <h3>Find matters before they become RFPs.</h3>
           <p class="desc">Reach clients while the work is still being shaped, not after it goes to bid.</p>
@@ -499,23 +505,24 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           </ul>
           <a class="textlink" href="#">Explore Proactive Signals &rarr;</a>
         </div>
-        <div class="product-media reveal">
+        <div class="reveal">
           <figure class="frame" data-parallax>
             <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Signals feed · assets/product-signals.png">
+            <div class="frame-media" data-ph="Product image · Signals feed · assets/product-signals.png">
               <img src="assets/product-signals.png" alt="Signals feed" onerror="this.parentElement.classList.add('noimg');this.remove()">
             </div>
           </figure>
         </div>
-      </article>
-    </div>
-  </section>
+      </div>
+    </section>
 
-  <!-- Products: ERM (dark) -->
-  <section class="product-dark">
-    <div class="wrap">
-      <article class="product flip">
-        <div class="product-copy reveal">
+    <section class="product product-erm grain">
+      <div class="erm-grid">
+        <div class="erm-media">
+          <img src="assets/photos/partner-on-phone.jpg" alt="A partner with a timely reason to call">
+        </div>
+        <div class="erm-copy reveal">
+          <span class="product-num">No.&thinsp;2</span>
           <span class="label">Proactive ERM</span>
           <h3>Grow the clients you already have.</h3>
           <p class="desc">The fastest path to more matters is inside existing relationships.</p>
@@ -526,20 +533,21 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           </ul>
           <a class="textlink" href="#">Explore Proactive ERM &rarr;</a>
         </div>
-        <div class="product-media reveal">
-          <figure class="photo" data-parallax>
-            <img src="assets/photos/partner-on-phone.jpg" alt="A partner with a timely reason to call" style="--ar:4/3">
+      </div>
+    </section>
+
+    <section class="product product-cleanse">
+      <div class="wrap">
+        <div class="reveal">
+          <figure class="frame" data-parallax>
+            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="frame-media" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
+              <img src="assets/product-cleanse.png" alt="Data hygiene" onerror="this.parentElement.classList.add('noimg');this.remove()">
+            </div>
           </figure>
         </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Products: Cleanse -->
-  <section class="products-tail">
-    <div class="wrap">
-      <article class="product">
-        <div class="product-copy reveal">
+        <div class="reveal">
+          <span class="product-num">No.&thinsp;3</span>
           <span class="label">Proactive Cleanse</span>
           <h3>Make your growth data trustworthy.</h3>
           <p class="desc">No signal, list, or partner prompt is better than the data underneath it.</p>
@@ -551,83 +559,69 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <p class="note">Many firms start here.</p>
           <a class="textlink" href="#">Explore Proactive Cleanse &rarr;</a>
         </div>
-        <div class="product-media reveal">
-          <figure class="frame" data-parallax>
-            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" style="--ar:4/3" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
-              <img src="assets/product-cleanse.png" alt="Data hygiene" onerror="this.parentElement.classList.add('noimg');this.remove()">
-            </div>
-          </figure>
-        </div>
-      </article>
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
 
   <!-- Shift -->
-  <section class="section">
-    <div class="wrap section-grid">
-      <span class="label reveal">The shift</span>
-      <div>
-        <p class="shift-intro reveal">Rate pressure is not a strategy. A repeatable origination motion is.</p>
-        <div class="shift-table reveal">
-          <div class="shift-col reactive">
-            <h3>The reactive firm</h3>
-            <ul>
-              <li>Raises rates to protect revenue</li>
-              <li>Hopes partners notice client needs</li>
-              <li>Leaves follow-up to memory and habit</li>
-              <li>Cleans CRM data after campaigns stall</li>
-            </ul>
-          </div>
-          <div class="shift-col proactive">
-            <h3>The proactive firm</h3>
-            <ul>
-              <li>Originates more matters to grow it</li>
-              <li>Surfaces needs before they become RFPs</li>
-              <li>Gives partners specific reasons to call</li>
-              <li>Keeps data ready for every growth motion</li>
-            </ul>
-          </div>
+  <section class="shift">
+    <div class="wrap">
+      <div class="shift-head reveal">
+        <span class="label" style="display:block;margin-bottom:1.25rem">The shift</span>
+        <h2>Rate pressure is not a strategy. A repeatable origination motion is.</h2>
+      </div>
+      <div class="shift-table reveal">
+        <div class="shift-col reactive">
+          <h3>The reactive firm</h3>
+          <ul>
+            <li>Raises rates to protect revenue</li>
+            <li>Hopes partners notice client needs</li>
+            <li>Leaves follow-up to memory and habit</li>
+            <li>Cleans CRM data after campaigns stall</li>
+          </ul>
+        </div>
+        <div class="shift-col proactive">
+          <h3>The proactive firm</h3>
+          <ul>
+            <li>Originates more matters to grow it</li>
+            <li>Surfaces needs before they become RFPs</li>
+            <li>Gives partners specific reasons to call</li>
+            <li>Keeps data ready for every growth motion</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Proof -->
-  <section class="section">
-    <div class="wrap section-grid">
+  <!-- Quote band: full-bleed -->
+  <section class="quote-band grain">
+    <div class="quote-band-bg">
+      <img src="assets/photos/boardroom.jpg" alt="A firm boardroom in session">
+    </div>
+    <figure class="wrap quote-band-content">
       <span class="label reveal">What practitioners say</span>
-      <div>
-        <p class="pullquote reveal">&ldquo;The firms with the most pricing power have the deepest client relationships.&rdquo;</p>
-        <figure class="quote-feature reveal">
-          <div class="quote-feature-copy">
-            <blockquote>&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
-            <figcaption class="quote-person">
-              <span class="avatar" data-ph="Photo"><img src="assets/headshots/merk.jpg" alt="Jeffrey Merk" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-              <div class="who"><strong>Jeffrey Merk</strong><span>Legal</span></div>
-            </figcaption>
-          </div>
-          <div class="photo quote-feature-photo">
-            <img src="assets/photos/client-conversation.jpg" alt="A partner in conversation with a client" style="--ar:4/3">
-          </div>
-        </figure>
-        <div class="quotes">
-          <figure class="quote reveal">
-            <blockquote>&ldquo;If I&rsquo;m a rainmaker, this is the information I really want to know.&rdquo;</blockquote>
-            <figcaption class="quote-person">
-              <span class="avatar" data-ph="Photo"><img src="assets/headshots/baylis.jpg" alt="Kristen Baylis" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-              <div class="who"><strong>Kristen Baylis</strong><span>Legal</span></div>
-            </figcaption>
-          </figure>
-          <figure class="quote reveal">
-            <blockquote>&ldquo;It would save rainmakers a ton of time and give them a lot of their life back.&rdquo;</blockquote>
-            <figcaption class="quote-person">
-              <span class="avatar" data-ph="Photo"><img src="assets/headshots/rubin.jpg" alt="Jessica Rubin" onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
-              <div class="who"><strong>Jessica Rubin</strong><span>Legal</span></div>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
+      <blockquote class="reveal">&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
+      <figcaption class="reveal"><strong>Jeffrey Merk</strong>Legal</figcaption>
+    </figure>
+  </section>
+
+  <!-- Voices -->
+  <section class="voices">
+    <div class="wrap quotes">
+      <figure class="quote reveal">
+        <blockquote>&ldquo;If I&rsquo;m a rainmaker, this is the information I really want to know.&rdquo;</blockquote>
+        <figcaption class="quote-person">
+          <span class="avatar"><img src="assets/headshots/baylis.jpg" alt="Kristen Baylis" onerror="this.remove()"></span>
+          <div class="who"><strong>Kristen Baylis</strong><span>Legal</span></div>
+        </figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <blockquote>&ldquo;It would save rainmakers a ton of time and give them a lot of their life back.&rdquo;</blockquote>
+        <figcaption class="quote-person">
+          <span class="avatar"><img src="assets/headshots/rubin.jpg" alt="Jessica Rubin" onerror="this.remove()"></span>
+          <div class="who"><strong>Jessica Rubin</strong><span>Legal</span></div>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -691,10 +685,17 @@ const io = new IntersectionObserver((entries) => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }
 }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  if (el.closest('.hero') || el.closest('.hero-stage')) el.style.transitionDelay = `${Math.min(i * 80, 400)}ms`;
-  io.observe(el);
+document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 110}ms`;
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
 });
+document.querySelectorAll('.reveal:not(.hero .reveal)').forEach(el => io.observe(el));
+
+const header = document.querySelector('header');
+const hero = document.querySelector('.hero');
+const setHeader = () => header.classList.toggle('solid', scrollY > hero.offsetHeight - 120);
+setHeader();
+addEventListener('scroll', setHeader, { passive: true });
 
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const frames = Array.from(document.querySelectorAll('[data-parallax]'));
@@ -710,7 +711,6 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     }
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   update();
 }
 </script>

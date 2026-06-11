@@ -36,6 +36,17 @@ Never #000 or #fff. No other hues.
 - Scale ratio ≥1.25. H1 clamp(2.75rem, 5.5vw, 4.5rem).
 - Body measure ≤ 65ch.
 
+## Full-bleed system (siteinspire research, June 2026)
+Benchmarks: Quinn Global Tax Law (quinngtl.com) and Old Tom Capital (oldtomcapital.com), both by Highly Necessary; plus Legora/Happy Robot heroes. The anti-pattern ("AI slop"): centered hero text above a contained rounded image, one repeated section-grid, single background color throughout.
+
+- Hero: 100svh full-bleed photography, nav and headline OVERLAID on the image (transparent header that turns solid past the hero), gradient scrim for legibility, film-grain overlay.
+- Section rhythm by background shifts: photo -> ink -> paper -> emerald drench -> field -> ink+photo split -> paper -> photo band -> emerald. Never two adjacent sections on the same ground.
+- Asymmetric splits: media runs flush to the viewport edge (no border-radius), copy in a measured column on the other side (Quinn).
+- Sticky editorial column beside scrolling giant two-tone stat rows (Old Tom): first line ink, second line emerald, both at display scale.
+- Ghosted oversized serif numerals (No. 1/2/3) as product section markers.
+- Full-bleed photo quote band with the testimonial overlaid (Legora ROI-band pattern).
+- Film grain: SVG feTurbulence overlay at ~10% on photo sections; photos graded slightly desaturated.
+
 ## Layout
 - Max content width 1120px, 24px gutters mobile / 48px desktop.
 - Section rhythm: clamp(6rem, 10vw, 10rem) vertical. Vary: trust strip and statement sections tighter.
