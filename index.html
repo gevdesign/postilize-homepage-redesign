@@ -234,16 +234,31 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 }
 .stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.3rem;max-width:38ch}
 
-/* ---------- statement: emerald drench ---------- */
+/* ---------- statement: Apple-style photo band, centered ---------- */
 .statement{
-  background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
-  color:var(--paper-on-green);
-  padding:clamp(8rem,14vw,13rem) 0;
+  position:relative;overflow:hidden;min-height:82svh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;color:var(--paper);
+  padding:clamp(6rem,10vw,9rem) var(--gutter);
+}
+.statement-bg{position:absolute;inset:0}
+.statement-bg img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.8) contrast(1.02);
+}
+.statement-bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(13,16,22,.52) 0%,rgba(13,16,22,.72) 100%);
+}
+.statement-content{position:relative;z-index:2}
+.statement .label{
+  display:block;margin-bottom:1.5rem;
+  color:color-mix(in srgb,var(--paper) 78%,transparent);
 }
 .statement p{
   font-family:var(--serif);font-weight:300;letter-spacing:-.025em;
-  font-size:clamp(2.2rem,4.6vw,3.9rem);line-height:1.16;
-  max-width:22ch;text-wrap:balance;
+  font-size:clamp(2.3rem,4.8vw,4.2rem);line-height:1.14;
+  max-width:25ch;text-wrap:balance;margin:0 auto;
 }
 .statement em{font-style:italic;color:var(--green-soft)}
 
@@ -532,9 +547,13 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
   </section>
 
-  <!-- Statement: emerald drench -->
-  <section class="statement">
-    <div class="wrap">
+  <!-- Statement: Apple-style photo band -->
+  <section class="statement grain">
+    <div class="statement-bg">
+      <img src="assets/photos/managing-partner.jpg" alt="A managing partner in her office">
+    </div>
+    <div class="statement-content">
+      <span class="label reveal">Why Postilize</span>
       <p class="reveal">Every platform is automating legal work. Postilize is built to <em>create</em> it.</p>
     </div>
   </section>
