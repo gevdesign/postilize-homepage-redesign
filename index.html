@@ -22,15 +22,15 @@
   font-weight:100 900;font-style:italic;font-display:swap;
 }
 :root{
-  --paper:#FAFAF9;
-  --ink:#0D1016;
-  --ink-soft:#6B6B6B;
-  --hairline:#E4E4E2;
-  --field:#E9E9E7;
-  --green:#005032;
-  --green-deep:#003D26;
-  --green-soft:#8FB9A3;
-  --paper-on-green:#FAFAF9;
+  --paper:#FFFFFF;
+  --ink:#0A0A0A;
+  --ink-soft:#888888;
+  --hairline:rgba(255,255,255,.12);
+  --field:#141414;
+  --green:#FFFFFF;
+  --green-deep:#CCCCCC;
+  --green-soft:#666666;
+  --paper-on-green:#0A0A0A;
   --serif:"Tiempos Headline","Source Serif 4",Georgia,serif;
   --sans:"Geist",-apple-system,"Helvetica Neue",sans-serif;
   --w:1360px;
@@ -40,8 +40,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:var(--paper);
-  color:var(--ink);
+  background:var(--ink);
+  color:var(--paper);
   font-family:var(--sans);
   font-size:15px;
   line-height:1.6;
@@ -77,7 +77,7 @@ img{display:block}
 }
 .btn-primary{background:var(--green);color:var(--paper-on-green)}
 .btn-primary:hover{background:var(--green-deep)}
-.btn-ghost{border-color:var(--hairline);color:var(--ink)}
+.btn-ghost{border-color:var(--hairline);color:var(--paper)}
 .btn-ghost:hover{border-color:var(--ink-soft)}
 .btn-paper{background:var(--paper);color:var(--ink)}
 .btn-paper:hover{background:var(--field)}
@@ -92,13 +92,13 @@ img{display:block}
 /* ---------- framed product UI placeholder ---------- */
 .frame{
   position:relative;border-radius:10px;overflow:hidden;
-  background:var(--paper);border:1px solid var(--hairline);
-  box-shadow:0 1px 2px rgba(13,16,22,.04),0 28px 56px -36px rgba(13,16,22,.25);
+  background:var(--field);border:1px solid var(--hairline);
+  box-shadow:0 1px 2px rgba(5,41,44,.08),0 28px 56px -36px rgba(5,41,44,.45);
   will-change:transform;
 }
 .frame-bar{
   display:flex;gap:6px;align-items:center;height:34px;padding:0 14px;
-  background:#F2F2F0;border-bottom:1px solid var(--hairline);
+  background:var(--field);border-bottom:1px solid var(--hairline);
 }
 .frame-bar i{width:8px;height:8px;border-radius:50%;background:var(--hairline)}
 .frame-media{position:relative;aspect-ratio:var(--ar,4/3);background:var(--field)}
@@ -118,9 +118,9 @@ header{
   border-bottom:1px solid transparent;
 }
 header.solid{
-  background:color-mix(in srgb,var(--paper) 94%,transparent);
+  background:color-mix(in srgb,var(--ink) 90%,transparent);
   backdrop-filter:blur(10px);
-  color:var(--ink);
+  color:var(--paper);
   border-bottom-color:var(--hairline);
 }
 .news{
@@ -162,14 +162,14 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   color:var(--paper);
 }
 .hero-bg{position:absolute;inset:0;overflow:hidden;will-change:transform}
-.hero-bg img{
+.hero-bg img,.hero-bg video{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.82) contrast(1.04);
 }
 .hero-bg::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(200deg,rgba(13,16,22,.18) 0%,rgba(13,16,22,.05) 38%,rgba(13,16,22,.66) 88%),
-             linear-gradient(0deg,rgba(0,61,38,.22),rgba(0,61,38,.10));
+  background:linear-gradient(200deg,rgba(5,41,44,.18) 0%,rgba(5,41,44,.05) 38%,rgba(5,41,44,.66) 88%),
+             linear-gradient(0deg,rgba(5,41,44,.22),rgba(5,41,44,.10));
 }
 @media (prefers-reduced-motion:no-preference){
   /* photo breathes in on load (img owns this transform; wrapper owns scroll zoom) */
@@ -236,7 +236,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 .litera-fallback{display:none}
 .litera-lockup.noimg .litera-fallback{
   display:inline;font-family:var(--serif);font-weight:500;font-size:1.25rem;
-  letter-spacing:-.01em;color:var(--ink);
+  letter-spacing:-.01em;color:var(--paper);
 }
 
 /* ---------- proof stats band (high social proof, near the fold) ---------- */
@@ -266,10 +266,10 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 .stat-num{
   display:block;font-family:var(--sans);font-weight:400;letter-spacing:-.045em;
   font-size:clamp(3.4rem,8vw,8rem);line-height:.9;white-space:nowrap;
-  color:var(--ink);
+  color:var(--paper);
 }
 .stat-name{
-  display:block;font-size:.85rem;font-weight:600;color:var(--ink);
+  display:block;font-size:.85rem;font-weight:600;color:var(--paper);
   padding-top:.7rem;
 }
 .stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.3rem;max-width:38ch}
@@ -283,7 +283,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   padding:clamp(6rem,10vw,9rem) var(--gutter);
 }
 .statement-bg{position:absolute;inset:0}
-.statement-bg img{
+.statement-bg img,.statement-bg video{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.8) contrast(1.02);
   will-change:transform;transform-origin:center 38%;
@@ -297,7 +297,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 }
 .statement-bg::after{
   content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at center,rgba(13,16,22,.52) 0%,rgba(13,16,22,.72) 100%);
+  background:radial-gradient(ellipse at center,rgba(5,41,44,.52) 0%,rgba(5,41,44,.72) 100%);
 }
 .statement-content{position:relative;z-index:2}
 .statement .label{
@@ -341,7 +341,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
   gap:clamp(2.5rem,6vw,6rem);align-items:center;
 }
-.product-signals .product-num{color:#D8D8D5}
+.product-signals .product-num{color:var(--ink-soft)}
 
 /* erm: ink band, photo flush to left viewport edge */
 .product-erm{background:var(--ink);color:var(--paper)}
@@ -401,7 +401,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 }
 .quote-band-bg::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(190deg,rgba(13,16,22,.1) 0%,rgba(13,16,22,.72) 90%);
+  background:linear-gradient(190deg,rgba(5,41,44,.1) 0%,rgba(5,41,44,.72) 90%);
 }
 .quote-band-content{
   position:relative;z-index:2;width:100%;
@@ -459,13 +459,13 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 .foot-grid{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap}
 .foot-brand{max-width:30ch}
-.foot-brand .wordmark{display:block;margin-bottom:1rem;color:var(--ink)}
+.foot-brand .wordmark{display:block;margin-bottom:1rem;color:var(--paper)}
 .foot-brand p{font-size:.8rem;color:var(--ink-soft);line-height:1.55}
 .foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
 .foot-col .label{display:block;margin-bottom:1.1rem;font-size:.62rem}
 .foot-col ul{display:grid;gap:.6rem}
 .foot-col a{font-size:.82rem;color:var(--ink-soft);transition:color .18s}
-.foot-col a:hover{color:var(--ink)}
+.foot-col a:hover{color:var(--paper)}
 .foot-base{
   margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.75rem;
   border-top:1px solid var(--hairline);
@@ -528,7 +528,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <!-- Hero: full-bleed -->
   <section class="hero grain">
     <div class="hero-bg">
-      <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
+      <video src="assets/hero-loop.mp4" autoplay muted loop playsinline></video>
     </div>
     <div class="hero-content">
       <span class="label reveal">Business-of-law AI</span>
@@ -608,7 +608,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <div class="statement-track">
     <section class="statement grain">
       <div class="statement-bg">
-        <img src="assets/photos/managing-partner.jpg" alt="A managing partner in her office">
+        <video src="assets/woman.mp4" autoplay muted playsinline></video>
       </div>
       <div class="statement-content">
         <span class="label statement-type">Why Postilize</span>
@@ -849,7 +849,7 @@ addEventListener('scroll', setHeader, { passive: true });
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const frames = Array.from(document.querySelectorAll('[data-parallax]'));
   const track = document.querySelector('.statement-track');
-  const stageImg = document.querySelector('.statement-bg img');
+  const stageImg = document.querySelector('.statement-bg img, .statement-bg video');
   const stSection = document.querySelector('.statement');
   const stTypes = stSection ? stSection.querySelectorAll('.statement-type') : [];
   if (stSection) stSection.classList.add('is-driven');
