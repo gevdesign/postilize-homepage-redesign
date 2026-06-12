@@ -20,12 +20,35 @@ Strategy: crisp near-white/ink ground with one committed deep emerald that fully
 
 Never #000 or #fff. No other hues.
 
+### Verified benchmark data (pulled from competitor live CSS, June 2026)
+- Harvey: fonts custom HarveySerif + ABC Diatype Variable; ivory #FAFAF9 (gray-50-ivory), ink #0F0E0D (gray-950-ink), gray-200 #E5E5E3, gray-600 #706D66; muted accents alabaster #DBD9D1, blush #D9CDCC, casal #333F40, bronze #593D3A; hero video loop; framed imagery with hover scale 1.02.
+- Legora: fonts Rhymes Display Light + Domaine Display Narrow (display), Suisse Intl Book/Medium (body); emerald #005032 dominant, ink #0D1016, off-white #FAFAF9, panel #E6E6E6, hover green #003D26.
+- Our --paper matches both sites' off-white exactly; hairline and ink-soft sit within 1–2 points of Harvey's grays.
+
 ## Typography
-- Display: Source Serif 4 (opsz), weights 300–400. Tight tracking (-0.015em to -0.025em), line-height 1.04–1.12 on display sizes.
-- Body/UI: Hanken Grotesk, weights 400/500/600. 17px body, line-height 1.6.
+- Display serif: **Tiempos Headline** (Klim) — chosen as the end-state serif; the institutional register Harvey's custom serif occupies. Currently running on Klim's variable TEST fonts (assets/fonts/tiempos-headline-vf-{roman,italic}.woff2) — fine for this concept, but a commercial web license from klim.co.nz is required before production launch; swap the test files for licensed ones at the same paths. Source Serif 4 remains in the stack as fallback. Tight tracking (-0.03em on display, -0.015em elsewhere), line-height 1.04–1.12 on display sizes; re-check tracking optically once Tiempos lands.
+- Body/UI: Geist, weights 400/500/600. 15px body, line-height 1.6; component text runs 13–14px (.82–.9rem). Legora's measured system runs 13–14px body. (Geist chosen as the closest free analog to the competitors' Suisse Intl / ABC Diatype; replaced Hanken Grotesk, which read too warm/humanist for the register.)
+- Scale contrast is the premium signal (measured on legora.com): body 14px vs stat numerals ~110px vs H1 60px. Ours: 15px body, display clamp to 76px, stat numerals clamp to 104px — the largest type on the page is the stats, not the hero.
+- Stats render as Legora-style ruled rows: hairline top, giant serif numeral left, 12–13px gray label in a right column. Never columns of equal cards.
+- Buttons are pills (border-radius 999px), 13–14px/600 text — measured from Legora (99px radius).
+- Rejected: Gloock as display serif (tested side by side; too heavy/fashion-editorial against Harvey's and Legora's light serifs).
 - Labels: Hanken Grotesk 600, 11–12px, uppercase, +0.12em tracking, ink-soft.
 - Scale ratio ≥1.25. H1 clamp(2.75rem, 5.5vw, 4.5rem).
 - Body measure ≤ 65ch.
+
+## Logo wall (Harvey research, June 2026)
+Harvey's customer strip, observed on the rendered site: a slow marquee overlaid at the bottom of the dark hero (not a separate band), no "trusted by" label, every wordmark optically normalized to a common x-height (~16-21px) regardless of file dimensions, muted to ~60-70% white, equal wide gaps, edge fade via mask. Premium = optical evenness + quiet, never raw file sizes. Ours implements this with per-logo height classes (.lg-*), 68% opacity, 38s loop, hover pause, reduced-motion fallback to static.
+
+## Full-bleed system (siteinspire research, June 2026)
+Benchmarks: Quinn Global Tax Law (quinngtl.com) and Old Tom Capital (oldtomcapital.com), both by Highly Necessary; plus Legora/Happy Robot heroes. The anti-pattern ("AI slop"): centered hero text above a contained rounded image, one repeated section-grid, single background color throughout.
+
+- Hero: 100svh full-bleed photography, nav and headline OVERLAID on the image (transparent header that turns solid past the hero), gradient scrim for legibility, film-grain overlay.
+- Section rhythm by background shifts: photo -> ink -> paper -> emerald drench -> field -> ink+photo split -> paper -> photo band -> emerald. Never two adjacent sections on the same ground.
+- Asymmetric splits: media runs flush to the viewport edge (no border-radius), copy in a measured column on the other side (Quinn).
+- Sticky editorial column beside scrolling giant two-tone stat rows (Old Tom): first line ink, second line emerald, both at display scale.
+- Ghosted oversized serif numerals (No. 1/2/3) as product section markers.
+- Full-bleed photo quote band with the testimonial overlaid (Legora ROI-band pattern).
+- Film grain: SVG feTurbulence overlay at ~10% on photo sections; photos graded slightly desaturated.
 
 ## Layout
 - Max content width 1120px, 24px gutters mobile / 48px desktop.
