@@ -162,7 +162,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   color:var(--paper);
 }
 .hero-bg{position:absolute;inset:0;overflow:hidden}
-.hero-bg img{
+.hero-bg img,.hero-bg video{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.82) contrast(1.04);
 }
@@ -254,7 +254,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   padding:clamp(6rem,10vw,9rem) var(--gutter);
 }
 .statement-bg{position:absolute;inset:0}
-.statement-bg img{
+.statement-bg img,.statement-bg video{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.8) contrast(1.02);
   will-change:transform;transform-origin:center 38%;
@@ -495,7 +495,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <!-- Hero: full-bleed -->
   <section class="hero grain">
     <div class="hero-bg">
-      <img src="assets/photos/partners-signing.jpg" alt="Partners reviewing a new matter with a client">
+      <video src="assets/hero-loop.mp4" autoplay muted loop playsinline></video>
     </div>
     <div class="hero-content">
       <span class="label reveal">Business-of-law AI</span>
@@ -567,7 +567,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <div class="statement-track">
     <section class="statement grain">
       <div class="statement-bg">
-        <img src="assets/photos/managing-partner.jpg" alt="A managing partner in her office">
+        <video src="assets/woman.mp4" autoplay muted loop playsinline></video>
       </div>
       <div class="statement-content">
         <span class="label reveal">Why Postilize</span>
@@ -794,7 +794,7 @@ addEventListener('scroll', setHeader, { passive: true });
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const frames = Array.from(document.querySelectorAll('[data-parallax]'));
   const track = document.querySelector('.statement-track');
-  const stageImg = document.querySelector('.statement-bg img');
+  const stageImg = document.querySelector('.statement-bg img, .statement-bg video');
   let ticking = false;
   const update = () => {
     ticking = false;
