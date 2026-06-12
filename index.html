@@ -309,7 +309,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   font-size:clamp(2.3rem,4.8vw,4.2rem);line-height:1.14;
   max-width:25ch;text-wrap:balance;margin:0 auto;
 }
-.statement em{font-style:italic;color:var(--green-soft)}
+.statement em{font-style:italic;color:var(--paper)}
 
 /* ---------- products ---------- */
 .product-head{padding:clamp(6rem,10vw,9rem) 0 clamp(3.5rem,6vw,5rem)}
@@ -349,11 +349,12 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   align-items:stretch;min-height:72svh;
 }
-.erm-media{position:relative;overflow:hidden}
+.erm-media{position:relative;overflow:hidden;display:flex}
 .erm-media img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   filter:saturate(.85) contrast(1.02);
 }
+.erm-media .placeholder-shot{flex:1;border-radius:0;border:none;border-right:1px solid var(--hairline)}
 .erm-copy{
   display:flex;flex-direction:column;justify-content:center;
   padding:clamp(4rem,7vw,6.5rem) var(--gutter) clamp(4rem,7vw,6.5rem) clamp(2.5rem,5vw,5rem);
@@ -401,7 +402,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 }
 .quote-band-bg::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(190deg,rgba(5,41,44,.1) 0%,rgba(5,41,44,.72) 90%);
+  background:linear-gradient(190deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.65) 90%);
 }
 .quote-band-content{
   position:relative;z-index:2;width:100%;
@@ -435,8 +436,9 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 .closing{
   position:relative;overflow:hidden;
   margin-top:clamp(6rem,10vw,9rem);
-  background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%);
-  color:var(--paper-on-green);
+  background:var(--field);
+  border-top:1px solid var(--hairline);
+  color:var(--paper);
   text-align:center;
   padding:clamp(6rem,10vw,9rem) 0 clamp(9rem,14vw,13rem);
 }
@@ -445,32 +447,49 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.1;
   font-size:clamp(2.4rem,4.5vw,3.75rem);text-wrap:balance;
 }
-.closing p{margin:1.5rem auto 0;max-width:44ch;color:color-mix(in srgb,var(--paper-on-green) 72%,transparent)}
+.closing p{margin:1.5rem auto 0;max-width:44ch;color:var(--ink-soft)}
 .closing .btn{margin-top:2.5rem}
-.closing .btn-paper{color:var(--green)}
+.closing .btn-paper{background:var(--paper);color:var(--ink)}
 .watermark{
   position:absolute;left:50%;bottom:0;z-index:1;
   width:min(96%,1180px);height:auto;
   transform:translate(-50%,40%);
-  color:var(--paper-on-green);opacity:.07;pointer-events:none;
+  color:var(--paper);opacity:.04;pointer-events:none;
 }
 
 /* ---------- footer ---------- */
-footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
-.foot-grid{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap}
-.foot-brand{max-width:30ch}
-.foot-brand .wordmark{display:block;margin-bottom:1rem;color:var(--paper)}
-.foot-brand p{font-size:.8rem;color:var(--ink-soft);line-height:1.55}
-.foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
-.foot-col .label{display:block;margin-bottom:1.1rem;font-size:.62rem}
-.foot-col ul{display:grid;gap:.6rem}
-.foot-col a{font-size:.82rem;color:var(--ink-soft);transition:color .18s}
-.foot-col a:hover{color:var(--paper)}
-.foot-base{
-  margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.75rem;
+footer{
+  background:var(--ink);
   border-top:1px solid var(--hairline);
-  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  font-size:.78rem;color:var(--ink-soft);
+  padding:clamp(4rem,7vw,6rem) 0 clamp(2rem,4vw,3rem);
+}
+.foot-grid{
+  display:flex;justify-content:space-between;
+  gap:clamp(2rem,5vw,4rem);flex-wrap:wrap;
+  padding-bottom:clamp(3rem,5vw,4.5rem);
+  border-bottom:1px solid var(--hairline);
+}
+.foot-brand{max-width:28ch}
+.foot-brand .wordmark{display:block;margin-bottom:1.25rem;color:var(--paper)}
+.foot-brand p{font-size:.8rem;color:var(--ink-soft);line-height:1.6}
+.foot-cols{display:flex;gap:clamp(2.5rem,6vw,5.5rem)}
+.foot-col .label{display:block;margin-bottom:1.1rem;font-size:.62rem;color:var(--ink-soft)}
+.foot-col ul{display:grid;gap:.7rem}
+.foot-col a{font-size:.82rem;color:var(--paper);opacity:.55;transition:opacity .18s}
+.foot-col a:hover{opacity:1}
+.foot-base{
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  font-size:.75rem;color:var(--ink-soft);
+}
+
+/* ---------- placeholders ---------- */
+.placeholder-shot{
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hairline);border-radius:6px;
+  min-height:340px;width:100%;
+  color:var(--ink-soft);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:600;
 }
 
 /* ---------- reveal ---------- */
@@ -639,12 +658,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
           <a class="textlink" href="#">Explore Proactive Signals &rarr;</a>
         </div>
         <div class="reveal">
-          <figure class="frame" data-parallax>
-            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" style="--ar:1600/773" data-ph="Product image · Signals feed · assets/product-signals.png">
-              <img src="assets/product-signals.png" alt="Proactive Signals dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
-            </div>
-          </figure>
+          <div class="placeholder-shot">Product shot goes here</div>
         </div>
       </div>
     </section>
@@ -652,7 +666,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     <section class="product product-erm grain">
       <div class="erm-grid">
         <div class="erm-media">
-          <img src="assets/photos/partner-on-phone.jpg" alt="A partner with a timely reason to call">
+          <div class="placeholder-shot">Lifestyle shot goes here</div>
         </div>
         <div class="erm-copy reveal">
           <span class="product-num">No.&thinsp;2</span>
@@ -672,12 +686,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     <section class="product product-cleanse">
       <div class="wrap">
         <div class="reveal">
-          <figure class="frame" data-parallax>
-            <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="frame-media" style="--ar:1600/773" data-ph="Product image · Data hygiene · assets/product-cleanse.png">
-              <img src="assets/product-cleanse.png" alt="Proactive Cleanse data hygiene dashboard" onerror="this.parentElement.classList.add('noimg');this.remove()">
-            </div>
-          </figure>
+          <div class="placeholder-shot">Product shot goes here</div>
         </div>
         <div class="reveal">
           <span class="product-num">No.&thinsp;3</span>
@@ -731,33 +740,11 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
   <!-- Quote band: full-bleed -->
   <section class="quote-band grain">
     <div class="quote-band-bg">
-      <img src="assets/photos/boardroom.jpg" alt="A firm boardroom in session">
+      <img src="assets/photos/stairwell-call.jpg" alt="A partner in conversation">
     </div>
     <figure class="quote-band-content">
       <span class="label reveal">What practitioners say</span>
-      <blockquote class="reveal">&ldquo;This creates a significant advantage in deepening relationships and starting new ones.&rdquo;</blockquote>
-      <figcaption class="reveal"><strong>Jeffrey Merk</strong>Legal</figcaption>
     </figure>
-  </section>
-
-  <!-- Voices -->
-  <section class="voices">
-    <div class="wrap quotes">
-      <figure class="quote reveal">
-        <blockquote>&ldquo;If I&rsquo;m a rainmaker, this is the information I really want to know.&rdquo;</blockquote>
-        <figcaption class="quote-person">
-          <span class="avatar"><img src="assets/headshots/baylis.jpg" alt="Kristen Baylis" onerror="this.remove()"></span>
-          <div class="who"><strong>Kristen Baylis</strong><span>Legal</span></div>
-        </figcaption>
-      </figure>
-      <figure class="quote reveal">
-        <blockquote>&ldquo;It would save rainmakers a ton of time and give them a lot of their life back.&rdquo;</blockquote>
-        <figcaption class="quote-person">
-          <span class="avatar"><img src="assets/headshots/rubin.jpg" alt="Jessica Rubin" onerror="this.remove()"></span>
-          <div class="who"><strong>Jessica Rubin</strong><span>Legal</span></div>
-        </figcaption>
-      </figure>
-    </div>
   </section>
 
   <!-- Closing -->
