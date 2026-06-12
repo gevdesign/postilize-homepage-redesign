@@ -202,34 +202,34 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 .litera-side{margin-top:2.25rem;font-size:.8rem;color:var(--ink-soft)}
 .litera-side strong{color:var(--ink);font-weight:600}
 
-/* ---------- opportunity: sticky argument + giant stat rows ---------- */
-.opportunity .wrap{
-  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
-  gap:clamp(2.5rem,6vw,6rem);
-  padding-top:clamp(6rem,10vw,9rem);padding-bottom:clamp(6rem,10vw,9rem);
+/* ---------- pressure: full-width Swiss grid + giant stat rows ---------- */
+.pressure{padding:clamp(6rem,10vw,9.5rem) var(--gutter)}
+.pressure-head{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);
+  gap:clamp(2.5rem,6vw,6rem);align-items:start;
+  margin-bottom:clamp(3.5rem,6vw,5.5rem);
 }
-.opp-left{position:sticky;top:120px;align-self:start}
-.opp-left .label{display:block;margin-bottom:2rem}
-.opp-left h2{
-  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.12;
-  font-size:clamp(1.7rem,2.6vw,2.3rem);max-width:18ch;margin-bottom:1.5rem;
+.pressure-head .label{display:block;margin-bottom:2.25rem}
+.pressure-head h2{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.03em;line-height:1.02;
+  font-size:clamp(2.7rem,5.2vw,5.25rem);max-width:14ch;
 }
-.opp-left p{font-size:.95rem;color:var(--ink-soft);max-width:44ch;margin-bottom:1rem}
-.opp-left .btn{margin-top:1rem}
+.pressure-aside{padding-top:3.4rem}
+.pressure-aside p{font-size:.875rem;color:var(--ink-soft);max-width:46ch;margin-bottom:1rem}
+.pressure-aside .btn{margin-top:1.25rem}
 .stat{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,230px);
-  gap:2rem;align-items:start;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);
+  gap:clamp(2.5rem,6vw,6rem);align-items:start;
   border-top:1px solid var(--hairline);
-  padding:3rem 0 4rem;
+  padding:3.25rem 0 4.25rem;
 }
 .stat:last-child{border-bottom:1px solid var(--hairline)}
 .stat-num{
   display:block;font-family:var(--sans);font-weight:400;letter-spacing:-.045em;
-  font-size:clamp(3.5rem,7vw,6.4rem);line-height:.92;white-space:nowrap;
+  font-size:clamp(3.4rem,8vw,8rem);line-height:.9;white-space:nowrap;
   color:var(--ink);
 }
-.stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.4rem}
-.stat--wide .stat-num{font-size:clamp(2.6rem,4.5vw,4.4rem)}
+.stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.5rem;max-width:34ch}
 
 /* ---------- statement: emerald drench ---------- */
 .statement{
@@ -415,8 +415,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
 
 /* ---------- responsive ---------- */
 @media (max-width:920px){
-  .opportunity .wrap{grid-template-columns:1fr;gap:3rem}
-  .opp-left{position:static}
+  .pressure-head{grid-template-columns:1fr;gap:2.5rem}
+  .pressure-aside{padding-top:0}
   .stat{grid-template-columns:1fr;gap:.75rem;padding:2rem 0 2.5rem}
   .product-signals .wrap,.product-cleanse .wrap{grid-template-columns:1fr;gap:2.5rem}
   .erm-grid{grid-template-columns:1fr;min-height:0}
@@ -491,33 +491,33 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
   </section>
 
-  <!-- Opportunity: sticky argument + giant stats -->
-  <section class="opportunity">
-    <div class="wrap">
-      <div class="opp-left reveal">
+  <!-- Pressure: full-width Swiss statement + giant stat rows -->
+  <section class="pressure">
+    <div class="pressure-head">
+      <div class="reveal">
         <span class="label">The pressure on firms</span>
         <h2>Rates buy time. Origination builds firms.</h2>
+      </div>
+      <div class="pressure-aside reveal">
         <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
         <p>Raising rates covers the gap for a while, but clients are already questioning the tradeoff.</p>
         <p>The durable move is to find client needs earlier, expand existing relationships, and act before competitors do.</p>
         <a class="btn btn-primary" href="#products">See how it works</a>
         <p class="litera-side">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
       </div>
-      <div class="opp-right">
-        <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
-        <div class="stat reveal">
-          <span class="stat-num">4.2wks</span>
-          <p>average head start: a client need detected as a signal before the RFP exists</p>
-        </div>
-        <div class="stat reveal">
-          <span class="stat-num">1,000+</span>
-          <p>client signals surfaced every week: leadership changes, financings, regulatory shifts, M&amp;A</p>
-        </div>
-        <div class="stat stat--wide reveal">
-          <span class="stat-num">AmLaw 200</span>
-          <p>firms growing with the Proactive suite</p>
-        </div>
-      </div>
+    </div>
+    <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
+    <div class="stat reveal">
+      <span class="stat-num">4.2wks</span>
+      <p>average head start: a client need detected as a signal before the RFP exists</p>
+    </div>
+    <div class="stat reveal">
+      <span class="stat-num">1,000+</span>
+      <p>client signals surfaced every week: leadership changes, financings, regulatory shifts, M&amp;A</p>
+    </div>
+    <div class="stat reveal">
+      <span class="stat-num">AmLaw 200</span>
+      <p>firms growing with the Proactive suite</p>
     </div>
   </section>
 
