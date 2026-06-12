@@ -900,6 +900,114 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   update();
 }
+
+// ── Count-up stats ──────────────────────────────────────────────────────────
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Parse a stat string into a numeric value + prefix + suffix
+  function parse(str) {
+    str = str.trim();
+    // "4.2wks" → num=4.2, pre="", suf="wks"
+    // "1,000+" → num=1000, pre="", suf="+"
+    // "AmLaw 200" → treat as text-only
+    const m = str.match(/^([^0-9]*)([0-9][0-9,.]*)([^0-9]*)$/);
+    if (!m) return null;
+    const num = parseFloat(m[2].replace(/,/g, ''));
+    if (isNaN(num)) return null;
+    return { pre: m[1], num, suf: m[3], raw: str, decimals: (m[2].includes('.') ? m[2].split('.')[1].length : 0) };
+  }
+
+  function format(val, p) {
+    if (p.num >= 1000) {
+      // Keep comma formatting
+      return p.pre + Math.round(val).toLocaleString('en-US') + p.suf;
+    }
+    return p.pre + val.toFixed(p.decimals) + p.suf;
+  }
+
+  const DURATION = 1200; // ms
+  const ease = t => 1 - Math.pow(1 - t, 3); // cubic ease-out
+
+  function animateStat(el) {
+    const text = el.textContent;
+    const p = parse(text);
+    if (!p) return; // text-only stat like "AmLaw 200" — do typewriter below
+    let start = null;
+    const step = ts => {
+      if (!start) start = ts;
+      const t = Math.min((ts - start) / DURATION, 1);
+      el.textContent = format(p.num * ease(t), p);
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = p.raw; // snap to exact original
+    };
+    requestAnimationFrame(step);
+  }
+
+  // Text-only stats: fast character ticker
+  function animateText(el) {
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
+    const target = el.textContent;
+    const STEPS = 16;
+    let frame = 0;
+    const step = () => {
+      frame++;
+      el.textContent = target.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        const reveal = Math.floor((frame / STEPS) * target.length);
+        if (i < reveal) return ch;
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+      if (frame < STEPS) requestAnimationFrame(step);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statNums = document.querySelectorAll('.stat-num');
+  const statIo = new IntersectionObserver(entries => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      statIo.unobserve(e.target);
+      const p = parse(e.target.textContent);
+      if (p && p.num) animateStat(e.target);
+      else animateText(e.target);
+    }
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+  statNums.forEach(el => statIo.observe(el));
+}());
+
+// ── Ink-in headline (pressure section) ─────────────────────────────────────
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const h2 = document.querySelector('.pressure-head h2');
+  if (!h2) return;
+
+  // Wrap each word in a span that clips in via a pseudo-wipe
+  const words = h2.innerHTML.split(/(\s+)/);
+  h2.innerHTML = words.map(w =>
+    w.trim() ? `<span class="ink-word" aria-hidden="false">${w}</span>` : w
+  ).join('');
+
+  const spans = h2.querySelectorAll('.ink-word');
+  spans.forEach((s, i) => {
+    s.style.opacity = '0';
+    s.style.filter = 'blur(6px)';
+    s.style.display = 'inline-block';
+    s.style.transition = `opacity 0.55s ease ${i * 60}ms, filter 0.55s ease ${i * 60}ms`;
+  });
+
+  const inkIo = new IntersectionObserver(entries => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      inkIo.unobserve(e.target);
+      spans.forEach(s => { s.style.opacity = '1'; s.style.filter = 'blur(0px)'; });
+    }
+  }, { rootMargin: '0px 0px -5% 0px', threshold: 0.2 });
+
+  inkIo.observe(h2);
+}());
 </script>
 
 </body>
