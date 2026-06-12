@@ -187,6 +187,13 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   font-size:clamp(3.25rem,7.5vw,7rem);
   max-width:24ch;text-wrap:balance;
 }
+/* line-by-line masked headline reveal (lines built in JS) */
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
+.hero h1 .line-inner{display:block}
+@media (prefers-reduced-motion:no-preference){
+  .js .hero h1.split .line-inner{transform:translateY(110%);transition:transform .95s var(--ease);will-change:transform}
+  .js .hero h1.split.in .line-inner{transform:translateY(0)}
+}
 .hero .lede{margin-top:1.75rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:50ch}
 .hero-ctas{display:flex;gap:.9rem;margin-top:2.25rem;flex-wrap:wrap}
 
@@ -509,7 +516,7 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
     <div class="hero-content">
       <span class="label reveal">Business-of-law AI</span>
-      <h1 class="reveal">AI is shrinking matters. Postilize finds you more.</h1>
+      <h1>AI is shrinking matters. Postilize finds you more.</h1>
       <p class="lede reveal">As AI compresses the hours inside legal work, Postilize helps firms surface client needs earlier, grow the relationships they already have, and make partner follow-up actually happen.</p>
       <div class="hero-ctas reveal">
         <a class="btn btn-paper" href="#demo">Book a demo</a>
@@ -794,6 +801,40 @@ document.querySelectorAll('.hero .reveal').forEach((el, i) => {
   requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
 });
 document.querySelectorAll('.reveal:not(.hero .reveal)').forEach(el => io.observe(el));
+
+// Apple-style line-by-line masked reveal for the hero headline
+const h1 = document.querySelector('.hero h1');
+if (h1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  h1.style.visibility = 'hidden';                 // avoid a flash of plain text before split
+  const orig = h1.innerHTML;
+  let played = false;
+  const build = () => {
+    h1.classList.remove('split', 'in');
+    h1.innerHTML = orig;
+    const text = h1.textContent.trim().replace(/\s+/g, ' ');
+    h1.innerHTML = text.split(' ').map(w => `<span class="w">${w}</span>`).join(' ');
+    const lines = []; let top = null, cur;
+    for (const w of h1.querySelectorAll('.w')) {
+      const t = w.offsetTop;
+      if (t !== top) { top = t; cur = []; lines.push(cur); }
+      cur.push(w.textContent);
+    }
+    h1.innerHTML = lines.map(l => `<span class="line"><span class="line-inner">${l.join(' ')}</span></span>`).join('');
+    h1.classList.add('split');
+    h1.style.visibility = '';
+    const inners = [...h1.querySelectorAll('.line-inner')];
+    if (!played) {
+      inners.forEach((el, i) => el.style.transitionDelay = `${110 + i * 90}ms`);
+      requestAnimationFrame(() => requestAnimationFrame(() => h1.classList.add('in')));
+      played = true;
+    } else {
+      inners.forEach(el => el.style.transitionDelay = '0ms');   // resize re-split: stay revealed, no replay
+      h1.classList.add('in');
+    }
+  };
+  (document.fonts && document.fonts.ready ? document.fonts.ready.then(build) : build());
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); }, { passive: true });
+}
 
 const header = document.querySelector('header');
 const hero = document.querySelector('.hero');
