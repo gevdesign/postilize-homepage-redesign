@@ -26,7 +26,7 @@ Never #000 or #fff. No other hues.
 - Our --paper matches both sites' off-white exactly; hairline and ink-soft sit within 1–2 points of Harvey's grays.
 
 ## Typography
-- Display: Source Serif 4 (opsz), weights 300–400. Tight tracking (-0.03em on display, -0.015em elsewhere), line-height 1.04–1.12 on display sizes.
+- Display serif: **Tiempos Headline** (Klim) — chosen as the end-state serif; the institutional register Harvey's custom serif occupies. Commercial license required (klim.co.nz): buy Light + Light Italic + Regular + Regular Italic web licenses and drop the files at assets/fonts/tiempos-headline-{light,light-italic,regular,regular-italic}.woff2 — @font-face slots are already wired and the site switches over automatically. Until then, Source Serif 4 (opsz, weights 300–400) serves as the live fallback. Tight tracking (-0.03em on display, -0.015em elsewhere), line-height 1.04–1.12 on display sizes; re-check tracking optically once Tiempos lands.
 - Body/UI: Geist, weights 400/500/600. 15px body, line-height 1.6; component text runs 13–14px (.82–.9rem). Legora's measured system runs 13–14px body. (Geist chosen as the closest free analog to the competitors' Suisse Intl / ABC Diatype; replaced Hanken Grotesk, which read too warm/humanist for the register.)
 - Scale contrast is the premium signal (measured on legora.com): body 14px vs stat numerals ~110px vs H1 60px. Ours: 15px body, display clamp to 76px, stat numerals clamp to 104px — the largest type on the page is the stats, not the hero.
 - Stats render as Legora-style ruled rows: hairline top, giant serif numeral left, 12–13px gray label in a right column. Never columns of equal cards.
