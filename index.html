@@ -157,11 +157,11 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 
 /* ---------- hero: full-bleed photo, text overlaid ---------- */
 .hero{
-  position:relative;min-height:100svh;
+  position:relative;min-height:100svh;overflow:hidden;
   display:flex;flex-direction:column;justify-content:center;
   color:var(--paper);
 }
-.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden;will-change:transform}
 .hero-bg img{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.82) contrast(1.04);
@@ -171,9 +171,15 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   background:linear-gradient(200deg,rgba(13,16,22,.18) 0%,rgba(13,16,22,.05) 38%,rgba(13,16,22,.66) 88%),
              linear-gradient(0deg,rgba(0,61,38,.22),rgba(0,61,38,.10));
 }
+@media (prefers-reduced-motion:no-preference){
+  /* photo breathes in on load (img owns this transform; wrapper owns scroll zoom) */
+  .js .hero-bg img{animation:heroKenBurns 6.5s var(--ease) both}
+  @keyframes heroKenBurns{from{transform:scale(1.12)}to{transform:scale(1)}}
+}
 .hero-content{
   position:relative;z-index:2;width:100%;
   padding:3rem var(--gutter) clamp(7rem,12vh,9rem);
+  will-change:transform,opacity;
 }
 .hero .label{display:block;margin-bottom:1.5rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
 .hero h1{
@@ -802,7 +808,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const stSection = document.querySelector('.statement');
   const stTypes = stSection ? stSection.querySelectorAll('.statement-type') : [];
   if (stSection) stSection.classList.add('is-driven');
+  const heroBg = document.querySelector('.hero-bg');
+  const heroContent = document.querySelector('.hero-content');
   // scroll-linked statement type: rise in (0–.28) · hold (.28–.68) · lift out (.68–1)
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const smoothstep = t => t * t * (3 - 2 * t);
   const envelope = p => p < 0.28 ? smoothstep(p / 0.28)
                       : p > 0.68 ? smoothstep((1 - p) / 0.32)
@@ -815,6 +824,12 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const update = () => {
     ticking = false;
     const vh = innerHeight;
+    if (heroBg && heroContent) {
+      const p = clamp(scrollY / vh, 0, 1);              // ~hero height = 100svh
+      heroBg.style.transform = `scale(${(1 + p * 0.06).toFixed(4)})`;
+      heroContent.style.opacity = (1 - smoothstep(clamp(p / 0.7, 0, 1))).toFixed(3);
+      heroContent.style.transform = `translateY(${(p * -48).toFixed(1)}px)`;
+    }
     for (const f of frames) {
       const r = f.getBoundingClientRect();
       if (r.bottom < -40 || r.top > vh + 40) continue;
