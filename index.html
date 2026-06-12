@@ -98,7 +98,7 @@ img{display:block}
 }
 .frame-bar{
   display:flex;gap:6px;align-items:center;height:34px;padding:0 14px;
-  background:#073A3F;border-bottom:1px solid var(--hairline);
+  background:var(--field);border-bottom:1px solid var(--hairline);
 }
 .frame-bar i{width:8px;height:8px;border-radius:50%;background:var(--hairline)}
 .frame-media{position:relative;aspect-ratio:var(--ar,4/3);background:var(--field)}
@@ -157,11 +157,11 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 
 /* ---------- hero: full-bleed photo, text overlaid ---------- */
 .hero{
-  position:relative;min-height:100svh;
+  position:relative;min-height:100svh;overflow:hidden;
   display:flex;flex-direction:column;justify-content:center;
   color:var(--paper);
 }
-.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden;will-change:transform}
 .hero-bg img,.hero-bg video{
   width:100%;height:100%;object-fit:cover;
   filter:saturate(.82) contrast(1.04);
@@ -171,9 +171,15 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   background:linear-gradient(200deg,rgba(5,41,44,.18) 0%,rgba(5,41,44,.05) 38%,rgba(5,41,44,.66) 88%),
              linear-gradient(0deg,rgba(5,41,44,.22),rgba(5,41,44,.10));
 }
+@media (prefers-reduced-motion:no-preference){
+  /* photo breathes in on load (img owns this transform; wrapper owns scroll zoom) */
+  .js .hero-bg img{animation:heroKenBurns 6.5s var(--ease) both}
+  @keyframes heroKenBurns{from{transform:scale(1.12)}to{transform:scale(1)}}
+}
 .hero-content{
   position:relative;z-index:2;width:100%;
   padding:3rem var(--gutter) clamp(7rem,12vh,9rem);
+  will-change:transform,opacity;
 }
 .hero .label{display:block;margin-bottom:1.5rem;color:color-mix(in srgb,var(--paper) 80%,transparent)}
 .hero h1{
@@ -181,8 +187,23 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   font-size:clamp(3.25rem,7.5vw,7rem);
   max-width:24ch;text-wrap:balance;
 }
+/* cycling headline rotator (last phrase swaps; hidden sizer reserves width) */
+.rotator{position:relative;display:inline-block;white-space:nowrap;vertical-align:baseline}
+.rotator-sizer{visibility:hidden}
+.rotator-item{position:absolute;left:0;top:0;white-space:nowrap;font-style:italic;opacity:0}
+.rotator-item.on{opacity:1}   /* base state: only the active phrase shows (no-JS / reduced-motion safe) */
+@media (prefers-reduced-motion:no-preference){
+  .js .rotator-item{transform:translateY(.26em);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .js .rotator-item.on{transform:none}
+}
 .hero .lede{margin-top:1.75rem;color:color-mix(in srgb,var(--paper) 82%,transparent);max-width:50ch}
-.hero-ctas{display:flex;gap:.9rem;margin-top:2.25rem;flex-wrap:wrap}
+.hero-ctas{display:flex;flex-direction:column;align-items:flex-start;gap:1.15rem;margin-top:2.25rem}
+.hero-demolink{
+  font-size:.9rem;font-weight:500;letter-spacing:.01em;
+  color:color-mix(in srgb,var(--paper) 82%,transparent);
+  border-bottom:1px solid transparent;transition:border-color .18s var(--ease),color .18s var(--ease);
+}
+.hero-demolink:hover{color:var(--paper);border-bottom-color:color-mix(in srgb,var(--paper) 60%,transparent)}
 
 /* ---------- hero logo marquee (Harvey treatment) ---------- */
 .hero-logos{
@@ -209,15 +230,23 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   .hero-logos:hover .marquee{animation-play-state:paused}
   @keyframes marquee{to{transform:translateX(-50%)}}
 }
-.litera-side{margin-top:.85rem;font-size:.75rem;color:var(--ink-soft)}
-.litera-side strong{color:var(--paper);font-weight:600}
+.litera-lockup{display:flex;align-items:center;gap:.7rem;margin-top:1.5rem}
+.litera-pre{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.litera-logo{height:20px;width:auto}
+.litera-fallback{display:none}
+.litera-lockup.noimg .litera-fallback{
+  display:inline;font-family:var(--serif);font-weight:500;font-size:1.25rem;
+  letter-spacing:-.01em;color:var(--paper);
+}
+
+/* ---------- proof stats band (high social proof, near the fold) ---------- */
+.stats{padding:clamp(2.5rem,5vw,4rem) var(--gutter) clamp(5rem,9vw,7.5rem)}
 
 /* ---------- pressure: full-width Swiss grid + giant stat rows ---------- */
 .pressure{padding:clamp(6rem,10vw,9.5rem) var(--gutter)}
 .pressure-head{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
   gap:clamp(2.5rem,5vw,4.5rem);align-items:start;
-  margin-bottom:clamp(3.5rem,6vw,5.5rem);
 }
 .pressure-head .label{display:block;margin-bottom:2.25rem}
 .pressure-head h2{
@@ -246,7 +275,7 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
 .stat p{font-size:.78rem;color:var(--ink-soft);line-height:1.5;padding-top:.3rem;max-width:38ch}
 
 /* ---------- statement: Apple-style sticky photo stage ---------- */
-.statement-track{height:210svh}
+.statement-track{height:240svh}
 .statement{
   position:sticky;top:0;overflow:hidden;height:100svh;
   display:flex;align-items:center;justify-content:center;
@@ -260,7 +289,11 @@ header.solid .btn-arr{background:var(--paper);color:var(--green)}
   will-change:transform;transform-origin:center 38%;
 }
 @media (prefers-reduced-motion:no-preference){
-  .js .statement .reveal{transition-duration:1.3s}
+  /* scroll-linked type: hidden initial state, applied only once JS drives it */
+  .statement.is-driven .statement-type{
+    opacity:0;transform:translateY(28px);
+    will-change:opacity,transform;
+  }
 }
 .statement-bg::after{
   content:"";position:absolute;inset:0;
@@ -499,11 +532,11 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
     <div class="hero-content">
       <span class="label reveal">Business-of-law AI</span>
-      <h1 class="reveal">AI is shrinking matters. Postilize finds you more.</h1>
+      <h1 class="reveal">AI is shrinking matters. Postilize <span class="rotator"><span class="rotator-sizer" aria-hidden="true">surfaces client needs.</span><span class="rotator-item on">finds you more.</span><span class="rotator-item" aria-hidden="true">surfaces client needs.</span><span class="rotator-item" aria-hidden="true">grows your book.</span><span class="rotator-item" aria-hidden="true">keeps partners ahead.</span></span></h1>
       <p class="lede reveal">As AI compresses the hours inside legal work, Postilize helps firms surface client needs earlier, grow the relationships they already have, and make partner follow-up actually happen.</p>
       <div class="hero-ctas reveal">
-        <a class="btn btn-paper" href="#demo">Book a demo</a>
-        <a class="btn btn-ghost-paper" href="#products">See the platform</a>
+        <a class="btn btn-paper" href="#products">See the platform</a>
+        <a class="hero-demolink" href="#demo">Ready to move? Book a demo <span aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
     <div class="hero-logos reveal" aria-label="Trusted by leading firms">
@@ -524,21 +557,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     </div>
   </section>
 
-  <!-- Pressure: full-width Swiss statement + giant stat rows -->
-  <section class="pressure">
-    <div class="pressure-head">
-      <div class="reveal">
-        <span class="label">The pressure on firms</span>
-        <h2>Hourly rates buy time. Origination builds firms.</h2>
-      </div>
-      <div class="pressure-aside reveal">
-        <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
-        <p>Raising rates covers the gap for a while, but clients are already questioning the tradeoff.</p>
-        <p>The durable move is to find client needs earlier, expand existing relationships, and act before competitors do.</p>
-        <a class="btn btn-primary" href="#products">See how it works</a>
-        <p class="litera-side">Backed by <strong>Litera</strong>, bringing the Proactive suite to firms globally.</p>
-      </div>
-    </div>
+  <!-- Proof: giant stat rows, placed high as social proof near the fold -->
+  <section class="stats">
     <!-- TODO: confirm final values with Postilize before launch; sourced from current site copy -->
     <div class="stat reveal">
       <span class="stat-num">4.2wks</span>
@@ -557,8 +577,29 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
     <div class="stat reveal">
       <span class="stat-num">AmLaw 200</span>
       <div>
-        <strong class="stat-name">Adoption</strong>
-        <p>Firms growing with the Proactive suite</p>
+        <strong class="stat-name">Firms, and growing</strong>
+        <p>Adopting the Proactive suite across the AmLaw 200</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pressure: full-width Swiss statement -->
+  <section class="pressure">
+    <div class="pressure-head">
+      <div class="reveal">
+        <span class="label">The pressure on firms</span>
+        <h2>Hourly rates buy time. Origination builds firms.</h2>
+      </div>
+      <div class="pressure-aside reveal">
+        <p>AI is compressing the hours inside matters while client expectations keep rising.</p>
+        <p>Raising rates covers the gap for a while, but clients are already questioning the tradeoff.</p>
+        <p>The durable move is to find client needs earlier, expand existing relationships, and act before competitors do.</p>
+        <a class="btn btn-ghost" href="#products">See how it works</a>
+        <div class="litera-lockup">
+          <span class="litera-pre">Backed by</span>
+          <img class="litera-logo" src="assets/logos/litera.svg" alt="Litera" onerror="this.parentElement.classList.add('noimg');this.remove()">
+          <span class="litera-fallback">Litera</span>
+        </div>
       </div>
     </div>
   </section>
@@ -570,8 +611,8 @@ footer{padding:clamp(3.5rem,6vw,5rem) 0 3rem}
         <video src="assets/woman.mp4" autoplay muted playsinline></video>
       </div>
       <div class="statement-content">
-        <span class="label reveal">Why Postilize</span>
-        <p class="reveal">Every platform is automating legal work. Postilize is built to <em>create</em> it.</p>
+        <span class="label statement-type">Why Postilize</span>
+        <p class="statement-type">Every platform is automating legal work. Postilize is built to <em>create</em> it.</p>
       </div>
     </section>
   </div>
@@ -785,6 +826,20 @@ document.querySelectorAll('.hero .reveal').forEach((el, i) => {
 });
 document.querySelectorAll('.reveal:not(.hero .reveal)').forEach(el => io.observe(el));
 
+// Cycling hero headline: swap the last phrase on an interval
+const rotator = document.querySelector('.rotator');
+if (rotator) {
+  const items = [...rotator.querySelectorAll('.rotator-item')];
+  if (items.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let i = 0;
+    setInterval(() => {
+      items[i].classList.remove('on');
+      i = (i + 1) % items.length;
+      items[i].classList.add('on');
+    }, 2800);
+  }
+}
+
 const header = document.querySelector('header');
 const hero = document.querySelector('.hero');
 const setHeader = () => header.classList.toggle('solid', scrollY > hero.offsetHeight - 120);
@@ -795,10 +850,31 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const frames = Array.from(document.querySelectorAll('[data-parallax]'));
   const track = document.querySelector('.statement-track');
   const stageImg = document.querySelector('.statement-bg img, .statement-bg video');
+  const stSection = document.querySelector('.statement');
+  const stTypes = stSection ? stSection.querySelectorAll('.statement-type') : [];
+  if (stSection) stSection.classList.add('is-driven');
+  const heroBg = document.querySelector('.hero-bg');
+  const heroContent = document.querySelector('.hero-content');
+  // scroll-linked statement type: rise in (0–.28) · hold (.28–.68) · lift out (.68–1)
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const smoothstep = t => t * t * (3 - 2 * t);
+  const envelope = p => p < 0.28 ? smoothstep(p / 0.28)
+                      : p > 0.68 ? smoothstep((1 - p) / 0.32)
+                      : 1;
+  const setType = e => {
+    const ty = ((1 - e) * 28).toFixed(2);
+    for (const el of stTypes) { el.style.opacity = e.toFixed(3); el.style.transform = `translateY(${ty}px)`; }
+  };
   let ticking = false;
   const update = () => {
     ticking = false;
     const vh = innerHeight;
+    if (heroBg && heroContent) {
+      const p = clamp(scrollY / vh, 0, 1);              // ~hero height = 100svh
+      heroBg.style.transform = `scale(${(1 + p * 0.06).toFixed(4)})`;
+      heroContent.style.opacity = (1 - smoothstep(clamp(p / 0.7, 0, 1))).toFixed(3);
+      heroContent.style.transform = `translateY(${(p * -48).toFixed(1)}px)`;
+    }
     for (const f of frames) {
       const r = f.getBoundingClientRect();
       if (r.bottom < -40 || r.top > vh + 40) continue;
@@ -811,6 +887,13 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       if (tr.top <= 0 && tr.bottom >= vh && runway > 0) {
         const progress = Math.min(1, Math.max(0, -tr.top / runway));
         stageImg.style.transform = `scale(${(1 + progress * 0.08).toFixed(4)})`;
+        setType(envelope(progress));
+      } else if (tr.bottom < vh) {
+        stageImg.style.transform = 'scale(1.08)';
+        setType(0);                 // fully passed: settle hidden (out end state)
+      } else if (tr.top > 0) {
+        stageImg.style.transform = 'scale(1)';
+        setType(0);                 // not yet pinned: rest hidden (in start state)
       }
     }
   };
